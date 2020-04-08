@@ -199,5 +199,10 @@ public class Character : MonoBehaviour
             }
         }
     }
-    
+
+    public bool IsDashing
+    {
+        get => isDashing;
+        set => isDashing = value;
+    }
 }

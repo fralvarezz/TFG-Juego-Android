@@ -558,6 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1311788094}
   - component: {fileID: 1311788093}
+  - component: {fileID: 1311788095}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -593,6 +594,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1311788095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311788092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4828f58a52902a4ba36539e77a97c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructibleCollectPoolSize: 5
+  destructibleCollectPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+    type: 3}
+  spawnRate: 4
+  destructibleCollectMin: -2.56
+  destructibleCollectMax: 4.45
 --- !u!1 &1463773935
 GameObject:
   m_ObjectHideFlags: 0

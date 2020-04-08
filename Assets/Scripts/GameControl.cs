@@ -9,6 +9,8 @@ public class GameControl : MonoBehaviour
     public static GameControl instance; //singleton
 
     public float backgroundScrollSpeed = -12f;
+
+    private int score = 0;
     
     //Set up GameControl
     void Awake()
@@ -29,7 +31,19 @@ public class GameControl : MonoBehaviour
         
     }
 
-    public void playerDied()
+    public void PlayerDestroyedBlock()
+    {
+        if (gameOver)
+        {
+            return;
+        }
+        else
+        {
+            score++;
+        }
+    }
+
+    public void PlayerDied()
     {
         gameOver = true;
     }
