@@ -20,7 +20,7 @@ public class ScrollingBackground : MonoBehaviour
         //if game isnt ended yet, floor moves
         if (!GameControl.instance.gameOver)
         {
-            float newPosition = Mathf.Repeat(Time.time * GameControl.instance.backgroundScrollSpeed, scrollOffset);
+            float newPosition = Mathf.Repeat(Time.time * GameControl.instance.BackgroundScrollSpeed, scrollOffset);
             transform.position = startPosition + Vector2.right * newPosition;
         }
     }
