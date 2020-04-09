@@ -55,23 +55,30 @@ public class Character : MonoBehaviour
             
             CheckInput();
             
-            if(jumpRequest && remainingJumps > 0)
+            if(jumpRequest)
             {
-                Jump();
-                remainingJumps--;
+                if (remainingJumps > 0)
+                {
+                    Jump();
+                    remainingJumps--;
+                }
                 jumpRequest = false;
             }
 
             
             
-            if(dashRequest && remainingDashes > 0)
+            if(dashRequest)
             {
-                Dash();
-                remainingDashes--;
+                if (remainingDashes > 0)
+                {
+                    Dash();
+                    remainingDashes--;
+                }
                 dashRequest = false;
             }
-
-            /*if (IsGrounded())
+            
+            /*
+            if (IsGrounded())
             {
                 ReloadJumps();
                 ReloadDashes();
@@ -82,7 +89,7 @@ public class Character : MonoBehaviour
             {
                 if (transform.position.x > startPosition.x && !isDashing)
                 {
-                    rb.velocity += Vector2.right * GameControl.instance.backgroundScrollSpeed;
+                    rb.velocity += Vector2.right * GameControl.instance.BackgroundScrollSpeed;
                     isReturning = true;
                 }
             }
@@ -95,12 +102,11 @@ public class Character : MonoBehaviour
                 }
                 else
                 {
-                    rb.velocity = new Vector2(GameControl.instance.backgroundScrollSpeed, rb.velocity.y);
+                    rb.velocity = new Vector2(GameControl.instance.BackgroundScrollSpeed, rb.velocity.y);
                 }
             }
         }
         
-        //prueba github
     }
 
     private void Jump()
@@ -153,7 +159,7 @@ public class Character : MonoBehaviour
         return raycastHit2D.collider != null;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Platform"))
         {
@@ -204,5 +210,13 @@ public class Character : MonoBehaviour
     {
         get => isDashing;
         set => isDashing = value;
+    }
+
+    public void PlayerDied()
+    {
+        rb.velocity = Vector2.zero;
+        //sprite
+        isDead = true;
+        GameControl.instance.PlayerDied();
     }
 }

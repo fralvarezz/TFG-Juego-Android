@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
@@ -8,7 +9,12 @@ public class GameControl : MonoBehaviour
     public bool gameOver = false;
     public static GameControl instance; //singleton
 
-    public float backgroundScrollSpeed = -12f;
+    private float timeElapsed;
+
+    public float initialBackgroundScrollSpeed;
+    
+    [SerializeField]
+    private float backgroundScrollSpeed;
 
     private int score = 0;
     
@@ -25,9 +31,19 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        backgroundScrollSpeed = initialBackgroundScrollSpeed;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (!gameOver)
+        {
+            timeElapsed = Time.time;
+            backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time);
+        }
         
     }
 
@@ -47,5 +63,6 @@ public class GameControl : MonoBehaviour
     {
         gameOver = true;
     }
-    
+
+    public float BackgroundScrollSpeed => backgroundScrollSpeed;
 }
