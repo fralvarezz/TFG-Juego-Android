@@ -143,7 +143,7 @@ Transform:
   - {fileID: 1463773937}
   - {fileID: 429704890}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &229909079
 BoxCollider2D:
@@ -524,7 +524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1203457580
 PolygonCollider2D:
@@ -580,10 +580,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   jumpVelocity: 8.25
-  maxNumJumps: 2
+  maxNumJumps: 10
+  remainingJumps: 0
   dashSpeed: 20
   dragDash: 14
   maxNumDashes: 1
+  remainingDashes: 0
 --- !u!114 &1203457582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5441471ca6d7cb47b08bc2cfded96d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallMultiplier: 2.5
+  fallMultiplier: 1.5
   lowJumpMultiplier: 2
 --- !u!114 &1203457583
 MonoBehaviour:
@@ -610,6 +612,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8627f93c0523353418f1268e77ce9b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1284913435
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.397
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545207075925755620, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+        type: 3}
+      propertyPath: m_Name
+      value: DestructibleCollect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7a352b8516e98714f8ebb16c0edf3c79, type: 3}
 --- !u!1 &1311788092
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +692,7 @@ GameObject:
   - component: {fileID: 1311788094}
   - component: {fileID: 1311788093}
   - component: {fileID: 1311788095}
+  - component: {fileID: 1311788096}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -655,7 +727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1311788095
 MonoBehaviour:
@@ -664,17 +736,44 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311788092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4828f58a52902a4ba36539e77a97c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructibleCollectPoolSize: 10
+  destructibleCollectPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+    type: 3}
+  spawnRate: 4
+  destructibleCollectMin: -2.5
+  destructibleCollectMax: 4.45
+--- !u!114 &1311788096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311788092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 310c313720470f540879218a5ebd67fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destructibleCollectPoolSize: 5
   destructibleCollectPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
     type: 3}
+  destructibleThreshold: 400
+  destructibleCollectSpawnTimer: 0
+  destructibleCollectSpawnRate: 0
+  wallThreshold: 1000
+  hazardBlockPoolSize: 5
+  hazardBlockPrefab: {fileID: 7626496873461512090, guid: 038fbec5b8ae98b4785c7b1ff5abc9a9,
+    type: 3}
+  hazardBlockThreshold: 800
+  hazardBlockSpawnRate: 0
   spawnRate: 4
-  destructibleCollectMin: -2.56
-  destructibleCollectMax: 4.45
+  YpositionMin: -2.5
+  YpositionMax: 4.45
 --- !u!1 &1463773935
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +871,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.2785263}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -783,7 +882,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 1.28, y: 0.72294736}
   m_EdgeRadius: 0
 --- !u!114 &1463773939
 MonoBehaviour:

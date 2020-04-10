@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     private Rigidbody2D rb;
     private PolygonCollider2D polygonCollider2D;
     private bool isDead = false;
+    private bool onGround;
     private Vector2 startPosition;
 
     [SerializeField] private LayerMask platformLayerMask;
@@ -16,6 +17,7 @@ public class Character : MonoBehaviour
     [Range(0,10)]
     public float jumpVelocity = 5;
     public int maxNumJumps;
+    [SerializeField]
     private int remainingJumps;
     private BetterJump betterJumpScript;
     
@@ -24,6 +26,7 @@ public class Character : MonoBehaviour
     public float dragDash;
     private bool isDashing = false;
     public int maxNumDashes;
+    [SerializeField]
     private int remainingDashes;
 
     private bool isReturning = false;
@@ -82,7 +85,8 @@ public class Character : MonoBehaviour
             {
                 ReloadJumps();
                 ReloadDashes();
-            }*/
+            }
+            */
 
             //Return to original x position if conditions apply
             if (!isReturning)
@@ -107,6 +111,15 @@ public class Character : MonoBehaviour
             }
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        if (onGround)
+        {
+            ReloadDashes();
+            ReloadJumps();
+        }
     }
 
     private void Jump()
@@ -151,19 +164,29 @@ public class Character : MonoBehaviour
         
     }
 
+    /*
     private bool IsGrounded()
     {
-        float heightTest = .2f;
+        float heightTest = .00875f;
         RaycastHit2D raycastHit2D = Physics2D.BoxCast(polygonCollider2D.bounds.center, polygonCollider2D.bounds.size,
             0f, Vector2.down, heightTest, platformLayerMask);
         return raycastHit2D.collider != null;
+    }*/
+    
+
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            ReloadJumps();
+        }
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            ReloadJumps();
             ReloadDashes();
         }
     }
@@ -173,7 +196,7 @@ public class Character : MonoBehaviour
         remainingJumps = maxNumJumps;
     }
 
-    private void ReloadDashes()
+    public void ReloadDashes()
     {
         remainingDashes = maxNumDashes;
     }

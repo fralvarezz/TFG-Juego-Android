@@ -42,7 +42,7 @@ public class GameControl : MonoBehaviour
         if (!gameOver)
         {
             timeElapsed = Time.time;
-            backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time);
+            backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time/100);
         }
         
     }

@@ -23,6 +23,7 @@ public class DestructibleCollect : MonoBehaviour
             {
                 transform.position = startPosition;
                 player.IsDashing = false;
+                player.ReloadDashes();
             }
             else
             {
