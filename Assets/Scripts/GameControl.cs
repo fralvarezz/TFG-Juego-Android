@@ -12,6 +12,7 @@ public class GameControl : MonoBehaviour
     private float timeElapsed;
 
     public float initialBackgroundScrollSpeed;
+    public float maxBackgroundScrollSpeed;
     
     [SerializeField]
     private float backgroundScrollSpeed;
@@ -39,10 +40,9 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameOver && backgroundScrollSpeed > -6f)
+        if (!gameOver && backgroundScrollSpeed > maxBackgroundScrollSpeed)
         {
             backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time/10);
-            
         }
         
     }

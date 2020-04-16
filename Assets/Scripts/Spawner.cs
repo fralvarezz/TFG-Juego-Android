@@ -37,8 +37,12 @@ public class Spawner : MonoBehaviour
     public float min_spawnRate = 3f;
     public float max_spawnRate = 5f;
     private float nextSpawn = 1f;
-    public float YpositionMin = -5f;
-    public float YpositionMax = 3.5f;
+    public float horizontalYpositionMin = -2.5f;
+    public float tiltedYpositionMin = -1.75f;
+    public float verticalYpositionMin = -2.5f;
+    public float horizontalYpositionMax = 4.15f;
+    public float tiltedYpositionMax = 0f;
+    public float verticalYpositionMax = -2.5f;
     private float spawnXPosition = 10f;
     private float timeSinceLastSpawned;
     private int random;
@@ -96,7 +100,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnDestructible()
     {
-        float spawnYPosition = Random.Range(YpositionMin, YpositionMax);
+        float spawnYPosition = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
         destructibleCollects[currentDestructible].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentDestructible++;
         if (currentDestructible >= destructibleCollectPoolSize)
@@ -107,13 +111,58 @@ public class Spawner : MonoBehaviour
     
     private void SpawnHazardBlock()
     {
-        float spawnYPosition = Random.Range(YpositionMin, YpositionMax);
-        hazardBlocks[currentHazardBlock].transform.position = new Vector2(spawnXPosition, spawnYPosition);
+        int degrees = randomFaceDirection();
+        hazardBlocks[currentHazardBlock].transform.position = new Vector2(spawnXPosition, randomSpawnY(degrees));
+        hazardBlocks[currentHazardBlock].transform.eulerAngles = Vector3.forward * degrees;
         currentHazardBlock++;
         if (currentHazardBlock >= hazardBlockPoolSize)
         {
             currentHazardBlock = 0;
         }
+    }
+
+    private int randomFaceDirection()
+    {
+        int facing = Random.Range(0, 3);
+        int toret = 0;
+        switch (facing)
+        {
+            case 0:
+                toret = 90;
+                break;
+            case 1:
+                toret = 45;
+                break;
+            case 2:
+                toret = 0;
+                break;
+            case 3:
+                toret = -45;
+                break;
+            default:
+                toret = 0;
+                break;
+        }
+        return toret;
+    }
+
+    private float randomSpawnY(int degrees)
+    {
+        float toret = 0;
+        if (degrees == 0)
+        {
+            toret = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
+        }
+        else if (degrees == 45 || degrees == -45)
+        {
+            toret = Random.Range(tiltedYpositionMin, tiltedYpositionMax);
+        }
+        else
+        {
+            toret = Random.Range(verticalYpositionMin, verticalYpositionMax);
+        }
+
+        return toret;
     }
 
     private void SpawnDestructibleWall()
