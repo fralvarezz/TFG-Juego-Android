@@ -91,26 +91,26 @@ public class Character : MonoBehaviour
 
             //Return to original x position if conditions apply
 
-                if (!isReturning)
+            if (!isReturning)
+            {
+                if (transform.position.x > startPosition.x && !isDashing && onGround)
                 {
-                    if (transform.position.x > startPosition.x && !isDashing && onGround)
-                    {
-                        rb.velocity += Vector2.right * (GameControl.instance.BackgroundScrollSpeed / 2);
-                        isReturning = true;
-                    }
+                    rb.velocity += Vector2.right * (GameControl.instance.BackgroundScrollSpeed / 2);
+                    isReturning = true;
+                }
+            }
+            else
+            {
+                if (transform.position.x <= startPosition.x || !onGround)
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    isReturning = false;
                 }
                 else
                 {
-                    if (transform.position.x <= startPosition.x || !onGround)
-                    {
-                        rb.velocity = new Vector2(0, rb.velocity.y);
-                        isReturning = false;
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector2(GameControl.instance.BackgroundScrollSpeed / 2, rb.velocity.y);
-                    }
+                    rb.velocity = new Vector2(GameControl.instance.BackgroundScrollSpeed / 2, rb.velocity.y);
                 }
+            }
             
         }
         
