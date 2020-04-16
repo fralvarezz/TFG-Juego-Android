@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     private Rigidbody2D rb;
     private PolygonCollider2D polygonCollider2D;
     private bool isDead = false;
+    [SerializeField]
     private bool onGround;
     private Vector2 startPosition;
 
@@ -89,26 +90,28 @@ public class Character : MonoBehaviour
             */
 
             //Return to original x position if conditions apply
-            if (!isReturning)
-            {
-                if (transform.position.x > startPosition.x && !isDashing)
+
+                if (!isReturning)
                 {
-                    rb.velocity += Vector2.right * GameControl.instance.BackgroundScrollSpeed;
-                    isReturning = true;
-                }
-            }
-            else
-            {
-                if (transform.position.x <= startPosition.x)
-                {
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-                    isReturning = false;
+                    if (transform.position.x > startPosition.x && !isDashing && onGround)
+                    {
+                        rb.velocity += Vector2.right * (GameControl.instance.BackgroundScrollSpeed / 2);
+                        isReturning = true;
+                    }
                 }
                 else
                 {
-                    rb.velocity = new Vector2(GameControl.instance.BackgroundScrollSpeed, rb.velocity.y);
+                    if (transform.position.x <= startPosition.x || !onGround)
+                    {
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                        isReturning = false;
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector2(GameControl.instance.BackgroundScrollSpeed / 2, rb.velocity.y);
+                    }
                 }
-            }
+            
         }
         
     }
@@ -150,6 +153,7 @@ public class Character : MonoBehaviour
         rb.gravityScale = 2f;
         betterJumpScript.enabled = true;
         isDashing = false;
+        rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
     IEnumerator ReduceDragDash(float duration)
@@ -180,6 +184,15 @@ public class Character : MonoBehaviour
         if (other.gameObject.CompareTag("Platform"))
         {
             ReloadJumps();
+            onGround = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            onGround = false;
         }
     }
 

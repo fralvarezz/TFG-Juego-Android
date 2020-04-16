@@ -688,7 +688,8 @@ MonoBehaviour:
     type: 3}
   hazardBlockThreshold: 800
   hazardBlockSpawnRate: 0
-  spawnRate: 4
+  min_spawnRate: 2
+  max_spawnRate: 4
   YpositionMin: -2.5
   YpositionMax: 4.45
 --- !u!1 &1463773935
