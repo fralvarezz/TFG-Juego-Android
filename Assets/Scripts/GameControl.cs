@@ -39,10 +39,10 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameOver)
+        if (!gameOver && backgroundScrollSpeed > -6f)
         {
-            timeElapsed = Time.time;
-            backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time/100);
+            backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time/10);
+            
         }
         
     }

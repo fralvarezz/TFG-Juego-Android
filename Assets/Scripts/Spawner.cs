@@ -34,7 +34,9 @@ public class Spawner : MonoBehaviour
     public float hazardBlockSpawnRate;
     
     //Needed variables
-    public float spawnRate = 4f;
+    public float min_spawnRate = 3f;
+    public float max_spawnRate = 5f;
+    private float nextSpawn = 1f;
     public float YpositionMin = -5f;
     public float YpositionMax = 3.5f;
     private float spawnXPosition = 10f;
@@ -68,13 +70,12 @@ public class Spawner : MonoBehaviour
     {
         if (!GameControl.instance.gameOver)
         {
-            timeSinceLastSpawned += Time.deltaTime;
-            if (timeSinceLastSpawned > spawnRate)
+            if (nextSpawn <= 0)
             {
-                timeSinceLastSpawned = 0;
-            
+                nextSpawn = Random.Range(min_spawnRate, max_spawnRate);
+
                 random = Random.Range(0, 1000);
-            
+
                 if (random < destructibleThreshold)
                 {
                     SpawnDestructible();
@@ -89,6 +90,8 @@ public class Spawner : MonoBehaviour
                 }
             }
         }
+
+        nextSpawn -= Time.deltaTime;
     }
 
     private void SpawnDestructible()
@@ -116,10 +119,8 @@ public class Spawner : MonoBehaviour
     private void SpawnDestructibleWall()
     {
         float spawnYPosition = wallStartingY;
-        //Debug.Log(spawnYPosition);
         for (int i = 0; i <= 9; i++)
         {
-            Debug.Log(spawnYPosition);
             destructibleCollects[currentDestructible].transform.position = new Vector2(spawnXPosition, spawnYPosition);
             currentDestructible++;
             if (currentDestructible >= destructibleCollectPoolSize)
@@ -130,4 +131,17 @@ public class Spawner : MonoBehaviour
         }
 
     }
+    
+    public float MinSpawnRate
+    {
+        get => min_spawnRate;
+        set => min_spawnRate = value;
+    }
+
+    public float MaxSpawnRate
+    {
+        get => max_spawnRate;
+        set => max_spawnRate = value;
+    }
+    
 }
