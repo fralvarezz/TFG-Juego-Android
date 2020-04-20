@@ -573,6 +573,9 @@ MonoBehaviour:
   dragDash: 14
   maxNumDashes: 1
   remainingDashes: 0
+  downDashSpeed: 20
+  maxNumDownDashes: 1
+  remainingDownDashes: 0
 --- !u!114 &1203457582
 MonoBehaviour:
   m_ObjectHideFlags: 0
