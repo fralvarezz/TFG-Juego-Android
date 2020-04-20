@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     private int remainingJumps;
     private BetterJump betterJumpScript;
+    private bool jumpRequest;
     
     [Header("Dash Settings")]
     public float dashSpeed;
@@ -29,17 +30,24 @@ public class Character : MonoBehaviour
     public int maxNumDashes;
     [SerializeField]
     private int remainingDashes;
+    private bool dashRequest;
 
+    [Header("Down Dash Settings")] 
+    public float downDashSpeed;
+    private bool downDashRequest;
+    private bool isDownDashing;
+    public int maxNumDownDashes;
+    [SerializeField]
+    private int remainingDownDashes;
+    
     private bool isReturning = false;
 
     private Touch touch;
     private Vector2 startTouchPosition;
     private Vector2 endTouchPosition;
-    private bool dashRequest;
-    private bool jumpRequest;
 
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +56,7 @@ public class Character : MonoBehaviour
         startPosition = transform.position;
         remainingJumps = maxNumJumps;
         remainingDashes = maxNumDashes;
+        remainingDownDashes = maxNumDownDashes;
         betterJumpScript = GetComponent<BetterJump>();
     }
 
@@ -79,6 +88,17 @@ public class Character : MonoBehaviour
                     remainingDashes--;
                 }
                 dashRequest = false;
+            }
+
+            if (downDashRequest)
+            {
+                if (remainingDownDashes > 0)
+                {
+                    DownDash();
+                    remainingDownDashes--;
+                }
+
+                downDashRequest = false;
             }
             
             /*
@@ -169,6 +189,38 @@ public class Character : MonoBehaviour
     }
 
     /*
+    private void DownDash()
+    {
+        rb.AddForce(Vector2.down * downDashSpeed);
+    }*/
+    
+    private void DownDash()
+    {
+        //rb.velocity = Vector2.zero;
+        rb.velocity = Vector2.down * dashSpeed;
+        rb.drag = 6;
+        StartCoroutine(DownDashWait());
+    }
+
+    IEnumerator DownDashWait()
+    {
+        StartCoroutine(ReduceDragDash(.4f));
+        
+        rb.gravityScale = 0;
+        betterJumpScript.enabled = false;
+        isDownDashing = true;
+        isReturning = false;
+        
+        yield return new WaitForSeconds(.3f);
+        
+        rb.gravityScale = 2f;
+        betterJumpScript.enabled = true;
+        isDownDashing = false;
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+    }
+    
+
+    /*
     private bool IsGrounded()
     {
         float heightTest = .00875f;
@@ -201,6 +253,7 @@ public class Character : MonoBehaviour
         if (other.gameObject.CompareTag("Platform"))
         {
             ReloadDashes();
+            ReloadDownDashes();
         }
     }
 
@@ -212,6 +265,11 @@ public class Character : MonoBehaviour
     public void ReloadDashes()
     {
         remainingDashes = maxNumDashes;
+    }
+
+    public void ReloadDownDashes()
+    {
+        remainingDownDashes = maxNumDownDashes;
     }
 
     private void CheckInput()
@@ -232,11 +290,19 @@ public class Character : MonoBehaviour
                     {
                         jumpRequest = true;
                     }
-                    else if (startTouchPosition.x < endTouchPosition.x)
+                    else
                     {
-                        dashRequest = true;
+                        float diffX = endTouchPosition.x - startTouchPosition.x;
+                        float diffY = startTouchPosition.y - endTouchPosition.y;
+                        if (diffX > diffY)
+                        {
+                            dashRequest = true;
+                        }
+                        else
+                        {
+                            downDashRequest = true;
+                        }
                     }
-
                     break;
             }
         }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleCollect : MonoBehaviour
+public class Collect : MonoBehaviour
 {
-
     private Vector2 startPosition;
 
     private void Start()
@@ -20,16 +18,7 @@ public class DestructibleCollect : MonoBehaviour
 
         if (player != null)
         {
-            if (player.IsDashing)
-            {
-                transform.position = startPosition;
-                player.IsDashing = false;
-                player.ReloadDashes();
-            }
-            else
-            {
-                player.PlayerDied();
-            }
+            transform.position = startPosition;
         }
     }
 }

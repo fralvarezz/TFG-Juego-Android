@@ -659,20 +659,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310c313720470f540879218a5ebd67fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructibleCollectPoolSize: 15
-  destructibleCollectPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
+  destructibleCollectFrontPoolSize: 20
+  destructibleCollectFrontPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
     type: 3}
-  destructibleThreshold: 400
-  destructibleCollectSpawnTimer: 0
-  destructibleCollectSpawnRate: 0
-  wallThreshold: 1000
+  destructibleFrontThreshold: 20
+  destructibleCollectDownPoolSize: 5
+  destructibleCollectDownPrefab: {fileID: 2679021194648083370, guid: 4646bd5a7fadf8c4d9592124339d8239,
+    type: 3}
+  destructibleDownThreshold: 40
+  destructibleCollectUpPoolSize: 0
+  destructibleCollectUpPrefab: {fileID: 0}
+  destructibleUpThreshold: 0
+  wallThreshold: 100
   hazardBlockPoolSize: 5
   hazardBlockPrefab: {fileID: 7626496873461512090, guid: 038fbec5b8ae98b4785c7b1ff5abc9a9,
     type: 3}
-  hazardBlockThreshold: 800
-  hazardBlockSpawnRate: 0
-  min_spawnRate: 1
-  max_spawnRate: 3
+  hazardBlockThreshold: 60
+  twoHazardBlockThreshold: 80
+  collectsPoolSize: 5
+  collectPrefab: {fileID: 6355645703997300147, guid: f5d8c86e7dd058a42bd831d527df8682,
+    type: 3}
+  minHazardSpawnRate: 1
+  maxHazardSpawnRate: 1.5
+  minCollectSpawnRate: 5
+  maxCollectSpawnRate: 10
+  yPositionMin: -2.4
+  yPositionMax: 4.15
   horizontalYpositionMin: -2.4
   tiltedYpositionMin: -1.75
   verticalYpositionMin: -1.6
