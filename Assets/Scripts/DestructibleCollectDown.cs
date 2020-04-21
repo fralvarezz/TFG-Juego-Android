@@ -6,6 +6,7 @@ using UnityEngine;
 public class DestructibleCollectDown : MonoBehaviour
 {
     private Vector2 startPosition;
+    private bool triggered;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class DestructibleCollectDown : MonoBehaviour
         if (player != null)
         {
             transform.position = startPosition;
+            triggered = true;
         }
     }
 
@@ -30,7 +32,14 @@ public class DestructibleCollectDown : MonoBehaviour
 
         if (player != null)
         {
-            player.PlayerDied();
+            if (!triggered)
+            {
+                player.PlayerDied();
+            }
+            else
+            {
+                triggered = false;
+            }
         }
     }
 }

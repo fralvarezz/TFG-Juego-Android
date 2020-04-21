@@ -71,6 +71,7 @@ public class Spawner : MonoBehaviour
     public float horizontalYpositionMax = 4.15f;
     public float tiltedYpositionMax = 0f;
     public float verticalYpositionMax = -2.5f;
+    public float collectDownYpositionMin;
     private float spawnXPosition = 10f;
     private float timeSinceLastSpawned;
     private int random;
@@ -174,7 +175,7 @@ public class Spawner : MonoBehaviour
     
     private void SpawnDestructibleDown()
     {
-        float spawnYPosition = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
+        float spawnYPosition = Random.Range(collectDownYpositionMin, horizontalYpositionMax);
         destructibleCollectsDown[currentDestructibleDown].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentDestructibleDown++;
         if (currentDestructibleDown >= destructibleCollectDownPoolSize)

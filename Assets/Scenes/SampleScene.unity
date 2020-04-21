@@ -694,6 +694,7 @@ MonoBehaviour:
   horizontalYpositionMax: 4.15
   tiltedYpositionMax: 3.35
   verticalYpositionMax: 3.2
+  collectDownYpositionMin: -1.5
 --- !u!1 &1463773935
 GameObject:
   m_ObjectHideFlags: 0
