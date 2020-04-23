@@ -8,76 +8,92 @@ using Random = UnityEngine.Random;
 public class Spawner : MonoBehaviour
 {
     
-    //Destructible Collectibles Front
-    public int destructibleCollectFrontPoolSize;
-    public GameObject destructibleCollectFrontPrefab;
-    private GameObject[] destructibleCollectsFront;
-    private Vector2 destructibleCollectFrontPoolPosition = new Vector2(-15f, -25f);
-    private int currentDestructibleFront = 0;
+    [Header("Probability Thresholds")]
     public int destructibleFrontThreshold;
-    
-    //Destructible Collectibles Down
-    public int destructibleCollectDownPoolSize;
-    public GameObject destructibleCollectDownPrefab;
-    private GameObject[] destructibleCollectsDown;
-    private Vector2 destructibleCollectDownPoolPosition = new Vector2(-15f, -25f);
-    private int currentDestructibleDown = 0;
     public int destructibleDownThreshold;
+    public int destructibleUpThreshold;
+    public int hazardBlockThreshold;
+    public int twoHazardBlockThreshold;
+    public int wallThreshold = 0;
     
-    //Destructible Collectibles Up
-    public int destructibleCollectUpPoolSize;
+    [Header("Spawn Prefabs")]
+    public GameObject destructibleCollectFrontPrefab;
+    public GameObject destructibleCollectDownPrefab;
     public GameObject destructibleCollectUpPrefab;
+    public GameObject hazardBlockPrefab;
+    public GameObject collectPrefab;
+    
+    [Header("Spawn Pool Sizes")]
+    public int destructibleCollectFrontPoolSize;
+    public int destructibleCollectDownPoolSize;
+    public int destructibleCollectUpPoolSize;
+    public int hazardBlockPoolSize;
+    public int collectsPoolSize;
+    
+    [Header("Spawn Timers")]
+    public float minHazardSpawnRate = 3f;
+    public float maxHazardSpawnRate = 5f;
+    [SerializeField]
+    private float nextHazardSpawn = 1f;
+    
+    
+    [Header("Destructible Collects Front")]
+    private GameObject[] destructibleCollectsFront;
+    private Vector2 destructibleCollectFrontPoolPosition = new Vector2(-15f, -15f);
+    private int currentDestructibleFront = 0;
+    
+    [Header("Destructible Collects Down")]
+    private GameObject[] destructibleCollectsDown;
+    private Vector2 destructibleCollectDownPoolPosition = new Vector2(-15f, -20f);
+    private int currentDestructibleDown = 0;
+    
+    [Header("Destructible Collects Up")]
     private GameObject[] destructibleCollectsUp;
     private Vector2 destructibleCollectUpPoolPosition = new Vector2(-15f, -25f);
     private int currentDestructibleUp = 0;
-    public int destructibleUpThreshold;
     
-    
-    
-    //Destructible Walls
+    [Header("Destructible Walls")]
     private float wallStartingY = -2.4594f;
-    public int wallThreshold = 0;
     
-    //Hazard Block
-    public int hazardBlockPoolSize;
-    public GameObject hazardBlockPrefab;
+    [Header("Hazard Blocks")]
     private GameObject[] hazardBlocks;
     private Vector2 hazardBlockPoolPosition = new Vector2(-15f, -30f);
     private int currentHazardBlock = 0;
-    public int hazardBlockThreshold;
-    public int twoHazardBlockThreshold;
     private float hazardBlockSpawnTimer;
     
-    //Collects
-    public int collectsPoolSize;
-    public GameObject collectPrefab;
+    [Header("Collects")]
     private GameObject[] collects;
     private Vector2 collectsPoolPosition = new Vector2(-15f, -35f);
     private int currentCollect = 0;
-
-    //Needed variables
-    public float minHazardSpawnRate = 3f;
-    public float maxHazardSpawnRate = 5f;
-    private float nextHazardSpawn = 1f;
-    public float minCollectSpawnRate = 3f;
-    public float maxCollectSpawnRate = 5f;
+    
+    [Header("Collects Spawn Rate")]
+    public float minCollectSpawnRate;
+    public float maxCollectSpawnRate;
+    [SerializeField]
     private float nextCollectSpawn = 4f;
+    
+    [Header("Screen positioning")]
     public float yPositionMin;
     public float yPositionMax;
     private float thirdOfScreen;
-    public float horizontalYpositionMin = -2.5f;
-    public float tiltedYpositionMin = -1.75f;
-    public float verticalYpositionMin = -2.5f;
-    public float horizontalYpositionMax = 4.15f;
-    public float tiltedYpositionMax = 0f;
-    public float verticalYpositionMax = -2.5f;
-    public float collectDownYpositionMin;
     private float spawnXPosition = 10f;
+    
+    [Header("Hazard Blocks positioning")]
+    public float horizontalYpositionMin;
+    public float horizontalYpositionMax;
+    public float tiltedYpositionMin;
+    public float tiltedYpositionMax;
+    public float verticalYpositionMin;
+    public float verticalYpositionMax;
+    
+    [Header("Destructibles positioning")]
+    public float destructDownYpositionMin;
+    public float destructUpYpositionMax;
+    
+    
     private float timeSinceLastSpawned;
     private int random;
-
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +113,14 @@ public class Spawner : MonoBehaviour
                 (GameObject) Instantiate(destructibleCollectDownPrefab, destructibleCollectDownPoolPosition, Quaternion.identity);
         }
         
+        //Instantiate the destructibles up
+        destructibleCollectsUp = new GameObject[destructibleCollectUpPoolSize];
+        for (int i = 0; i < destructibleCollectUpPoolSize; i++)
+        {
+            destructibleCollectsUp[i] =
+                (GameObject) Instantiate(destructibleCollectUpPrefab, destructibleCollectUpPoolPosition, Quaternion.identity);
+        }
+        
         //Instantiate the hazard blocks
         hazardBlocks = new GameObject[hazardBlockPoolSize];
         for (int i = 0; i < hazardBlockPoolSize; i++)
@@ -112,7 +136,7 @@ public class Spawner : MonoBehaviour
             collects[i] = (GameObject) Instantiate(collectPrefab, collectsPoolPosition, Quaternion.identity);
         }
 
-        thirdOfScreen = Mathf.Abs(yPositionMin) + Mathf.Abs(yPositionMax);
+        thirdOfScreen = (Mathf.Abs(yPositionMin) + Mathf.Abs(yPositionMax)) - 0.5f / 3;
     }
 
     // Update is called once per frame
@@ -133,6 +157,10 @@ public class Spawner : MonoBehaviour
                 else if (random < destructibleDownThreshold)
                 {
                     SpawnDestructibleDown();
+                }
+                else if (random < destructibleUpThreshold)
+                {
+                    SpawnDestructibleUp();
                 }
                 else if (random < hazardBlockThreshold)
                 {
@@ -175,12 +203,23 @@ public class Spawner : MonoBehaviour
     
     private void SpawnDestructibleDown()
     {
-        float spawnYPosition = Random.Range(collectDownYpositionMin, horizontalYpositionMax);
+        float spawnYPosition = Random.Range(destructDownYpositionMin, horizontalYpositionMax);
         destructibleCollectsDown[currentDestructibleDown].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentDestructibleDown++;
         if (currentDestructibleDown >= destructibleCollectDownPoolSize)
         {
             currentDestructibleDown = 0;
+        }
+    }
+
+    private void SpawnDestructibleUp()
+    {
+        float spawnYPosition = Random.Range(horizontalYpositionMin, destructUpYpositionMax);
+        destructibleCollectsUp[currentDestructibleUp].transform.position = new Vector2(spawnXPosition, spawnYPosition);
+        currentDestructibleUp++;
+        if (currentDestructibleUp >= destructibleCollectUpPoolSize)
+        {
+            currentDestructibleUp = 0;
         }
     }
     
@@ -269,19 +308,25 @@ public class Spawner : MonoBehaviour
     {
         int partOfScreen = 0;
 
-        if (otherY >= 0 && otherY < thirdOfScreen)
+        if ((otherY >= yPositionMin) && (otherY < (yPositionMin + thirdOfScreen)))
         {
+            float number = yPositionMin + thirdOfScreen;
             partOfScreen = 0;
+            Debug.Log("Part of screen 0 --- "+otherY);
+            Debug.Log("Number: " + number);
         }
-        else if (otherY >= thirdOfScreen && otherY < thirdOfScreen * 2)
+        else if ((otherY >= yPositionMin + thirdOfScreen) && (otherY < (yPositionMin + thirdOfScreen * 2)) )
         {
             partOfScreen = 1;
+            Debug.Log("Part of screen 1 --- "+otherY);
         }
         else
         {
             partOfScreen = 2;
+            Debug.Log("Part of screen 2 --- "+otherY);
         }
         
+        Debug.Log("Degrees: " + degrees + "\nPart of screen: " + partOfScreen );
         
         float toret = 0;
         
@@ -290,21 +335,21 @@ public class Spawner : MonoBehaviour
             switch (partOfScreen)
             {
                 case 0:
-                    toret = Random.Range(thirdOfScreen, horizontalYpositionMax);
+                    toret = Random.Range(yPositionMin + thirdOfScreen, horizontalYpositionMax);
                     break;
                 case 1:
                     int randomThirdOfScreen = Random.Range(0, 2);
                     if (randomThirdOfScreen == 0)
                     {
-                        toret = Random.Range(horizontalYpositionMin, thirdOfScreen);
+                        toret = Random.Range(horizontalYpositionMin, yPositionMin + thirdOfScreen);
                     }
                     else
                     {
-                        toret = Random.Range(thirdOfScreen * 2, horizontalYpositionMax);
+                        toret = Random.Range(yPositionMin + thirdOfScreen * 2, horizontalYpositionMax);
                     }
                     break;
                 case 2:
-                    toret = Random.Range(horizontalYpositionMin, thirdOfScreen * 2);
+                    toret = Random.Range(horizontalYpositionMin, yPositionMin + thirdOfScreen * 2);
                     break;
             }
         }
@@ -313,21 +358,21 @@ public class Spawner : MonoBehaviour
             switch (partOfScreen)
             {
                 case 0:
-                    toret = Random.Range(thirdOfScreen, tiltedYpositionMax);
+                    toret = Random.Range(yPositionMin + thirdOfScreen, tiltedYpositionMax);
                     break;
                 case 1:
                     int randomThirdOfScreen = Random.Range(0, 2);
                     if (randomThirdOfScreen == 0)
                     {
-                        toret = Random.Range(tiltedYpositionMin, thirdOfScreen);
+                        toret = Random.Range(tiltedYpositionMin, yPositionMin + thirdOfScreen);
                     }
                     else
                     {
-                        toret = Random.Range(thirdOfScreen * 2, tiltedYpositionMax);
+                        toret = Random.Range(yPositionMin + thirdOfScreen * 2, tiltedYpositionMax);
                     }
                     break;
                 case 2:
-                    toret = Random.Range(tiltedYpositionMin, thirdOfScreen * 2);
+                    toret = Random.Range(tiltedYpositionMin, yPositionMin + thirdOfScreen * 2);
                     break;
             }
         }
@@ -336,21 +381,21 @@ public class Spawner : MonoBehaviour
             switch (partOfScreen)
             {
                 case 0:
-                    toret = Random.Range(thirdOfScreen, verticalYpositionMax);
+                    toret = Random.Range(yPositionMin + thirdOfScreen, verticalYpositionMax);
                     break;
                 case 1:
                     int randomThirdOfScreen = Random.Range(0, 2);
                     if (randomThirdOfScreen == 0)
                     {
-                        toret = Random.Range(verticalYpositionMin, thirdOfScreen);
+                        toret = Random.Range(verticalYpositionMin, yPositionMin + thirdOfScreen);
                     }
                     else
                     {
-                        toret = Random.Range(thirdOfScreen * 2, verticalYpositionMax);
+                        toret = Random.Range(yPositionMin + thirdOfScreen * 2, verticalYpositionMax);
                     }
                     break;
                 case 2:
-                    toret = Random.Range(verticalYpositionMin, thirdOfScreen * 2);
+                    toret = Random.Range(verticalYpositionMin, yPositionMin + thirdOfScreen * 2);
                     break;
             }
         }

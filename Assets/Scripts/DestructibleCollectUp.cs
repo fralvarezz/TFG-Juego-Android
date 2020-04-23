@@ -3,23 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleCollectDown : MonoBehaviour
+public class DestructibleCollectUp : MonoBehaviour
 {
     private Vector2 startPosition;
-    private bool triggered;
+    //private bool triggered;
 
     private void Start()
     {
         startPosition = (Vector2) transform.position;
     }
     
-    
+    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         Character player = other.gameObject.GetComponent<Character>();
 
-        if (player != null)
+        if (player != null && player.IsDownDashing)
         {
+            player.IsDownDashing = false;
+            player.ReloadDownDashes();
             transform.position = startPosition;
             triggered = true;
         }
@@ -41,9 +43,8 @@ public class DestructibleCollectDown : MonoBehaviour
                 triggered = false;
             }
         }
-    }
+    }*/
     
-    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         Character player = other.gameObject.GetComponent<Character>();
@@ -71,5 +72,5 @@ public class DestructibleCollectDown : MonoBehaviour
                 player.PlayerDied();
             }
         }
-    }*/
+    }
 }

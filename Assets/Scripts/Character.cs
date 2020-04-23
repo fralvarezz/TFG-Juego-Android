@@ -197,8 +197,8 @@ public class Character : MonoBehaviour
     private void DownDash()
     {
         //rb.velocity = Vector2.zero;
-        rb.velocity = Vector2.down * dashSpeed;
-        rb.drag = 6;
+        rb.velocity = Vector2.down * downDashSpeed;
+        rb.drag = 2;
         StartCoroutine(DownDashWait());
     }
 
@@ -312,6 +312,12 @@ public class Character : MonoBehaviour
     {
         get => isDashing;
         set => isDashing = value;
+    }
+
+    public bool IsDownDashing
+    {
+        get => isDownDashing;
+        set => isDownDashing = value;
     }
 
     public void PlayerDied()

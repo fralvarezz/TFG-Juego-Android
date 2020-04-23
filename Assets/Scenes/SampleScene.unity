@@ -573,7 +573,7 @@ MonoBehaviour:
   dragDash: 14
   maxNumDashes: 1
   remainingDashes: 0
-  downDashSpeed: 20
+  downDashSpeed: 30
   maxNumDownDashes: 1
   remainingDownDashes: 0
 --- !u!114 &1203457582
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 1311788096}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,14 +665,15 @@ MonoBehaviour:
   destructibleCollectFrontPoolSize: 20
   destructibleCollectFrontPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
     type: 3}
-  destructibleFrontThreshold: 20
+  destructibleFrontThreshold: 15
   destructibleCollectDownPoolSize: 5
   destructibleCollectDownPrefab: {fileID: 2679021194648083370, guid: 4646bd5a7fadf8c4d9592124339d8239,
     type: 3}
-  destructibleDownThreshold: 40
-  destructibleCollectUpPoolSize: 0
-  destructibleCollectUpPrefab: {fileID: 0}
-  destructibleUpThreshold: 0
+  destructibleDownThreshold: 30
+  destructibleCollectUpPoolSize: 5
+  destructibleCollectUpPrefab: {fileID: 3729230971617065068, guid: 425cdd9ba0e8b5941805f3a20952a356,
+    type: 3}
+  destructibleUpThreshold: 45
   wallThreshold: 100
   hazardBlockPoolSize: 5
   hazardBlockPrefab: {fileID: 7626496873461512090, guid: 038fbec5b8ae98b4785c7b1ff5abc9a9,
@@ -694,7 +695,8 @@ MonoBehaviour:
   horizontalYpositionMax: 4.15
   tiltedYpositionMax: 3.35
   verticalYpositionMax: 3.2
-  collectDownYpositionMin: -1.5
+  destructDownYpositionMin: 0
+  destructUpYpositionMax: 0
 --- !u!1 &1463773935
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +708,6 @@ GameObject:
   - component: {fileID: 1463773937}
   - component: {fileID: 1463773936}
   - component: {fileID: 1463773938}
-  - component: {fileID: 1463773940}
   - component: {fileID: 1463773941}
   - component: {fileID: 1463773939}
   - component: {fileID: 1463773942}
@@ -815,18 +816,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5aca9842e5fe46e43a5e419a7809521d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1463773940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463773935}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e04db0af9f6b3946b34c7dcdaf6ef2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1463773941
