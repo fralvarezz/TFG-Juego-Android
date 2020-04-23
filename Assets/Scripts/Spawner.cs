@@ -31,8 +31,8 @@ public class Spawner : MonoBehaviour
     public int collectsPoolSize;
     
     [Header("Spawn Timers")]
-    public float minHazardSpawnRate = 3f;
-    public float maxHazardSpawnRate = 5f;
+    public float minHazardSpawnRate;
+    public float maxHazardSpawnRate;
     [SerializeField]
     private float nextHazardSpawn = 1f;
     
@@ -81,10 +81,13 @@ public class Spawner : MonoBehaviour
     [Header("Hazard Blocks positioning")]
     public float horizontalYpositionMin;
     public float horizontalYpositionMax;
+    private float thirdOfScreenHorizontal;
     public float tiltedYpositionMin;
     public float tiltedYpositionMax;
+    private float thirdOfScreenTilted;
     public float verticalYpositionMin;
     public float verticalYpositionMax;
+    private float thirdOfScreenVertical;
     
     [Header("Destructibles positioning")]
     public float destructDownYpositionMin;
@@ -136,7 +139,11 @@ public class Spawner : MonoBehaviour
             collects[i] = (GameObject) Instantiate(collectPrefab, collectsPoolPosition, Quaternion.identity);
         }
 
-        thirdOfScreen = (Mathf.Abs(yPositionMin) + Mathf.Abs(yPositionMax)) - 0.5f / 3;
+        //thirdOfScreen = (Mathf.Abs(yPositionMin) + Mathf.Abs(yPositionMax)) - 0.5f / 3;
+        
+        thirdOfScreenHorizontal = (Mathf.Abs(horizontalYpositionMin) + Mathf.Abs(horizontalYpositionMax)) / 3;
+        thirdOfScreenTilted = (Mathf.Abs(tiltedYpositionMin) + Mathf.Abs(tiltedYpositionMax)) / 3;
+        thirdOfScreenVertical = (Mathf.Abs(verticalYpositionMin) + Mathf.Abs(verticalYpositionMax)) / 3;
     }
 
     // Update is called once per frame
@@ -240,7 +247,7 @@ public class Spawner : MonoBehaviour
         int degrees1 = randomFaceDirection();
         float randomY1 = randomSpawnY(degrees1);
         int degrees2 = randomFaceDirection();
-        float randomY2 = randomSpawnY(degrees2, randomY1);
+        float randomY2 = randomSpawnY(degrees1, randomY1, degrees2);
 
         hazardBlocks[currentHazardBlock].transform.position = new Vector2(spawnXPosition, randomY1);
         hazardBlocks[currentHazardBlock].transform.eulerAngles = Vector3.forward * degrees1;
@@ -304,75 +311,103 @@ public class Spawner : MonoBehaviour
         return toret;
     }
 
-    private float randomSpawnY(int degrees, float otherY)
+    private float randomSpawnY(int degrees1, float otherY, int degreesNew)
     {
         int partOfScreen = 0;
-
-        if ((otherY >= yPositionMin) && (otherY < (yPositionMin + thirdOfScreen)))
+        
+        if (degrees1 == 0)
         {
-            float number = yPositionMin + thirdOfScreen;
-            partOfScreen = 0;
-            Debug.Log("Part of screen 0 --- "+otherY);
-            Debug.Log("Number: " + number);
+            if (otherY >= horizontalYpositionMin && otherY < (horizontalYpositionMin + thirdOfScreenHorizontal))
+            {
+                partOfScreen = 0;
+            }
+            else if ((otherY >= horizontalYpositionMin + thirdOfScreenHorizontal) && (otherY < (horizontalYpositionMin + thirdOfScreenHorizontal * 2)) )
+            {
+                partOfScreen = 1;
+            }
+            else
+            {
+                partOfScreen = 2;
+            }
         }
-        else if ((otherY >= yPositionMin + thirdOfScreen) && (otherY < (yPositionMin + thirdOfScreen * 2)) )
+        else if (degrees1 == 45 || degrees1 == -45)
         {
-            partOfScreen = 1;
-            Debug.Log("Part of screen 1 --- "+otherY);
+            if (otherY >= tiltedYpositionMin && otherY < (tiltedYpositionMin + thirdOfScreenTilted))
+            {
+                partOfScreen = 0;
+            }
+            else if ((otherY >= tiltedYpositionMin + thirdOfScreenTilted) && (otherY < (tiltedYpositionMin + thirdOfScreenTilted * 2)) )
+            {
+                partOfScreen = 1;
+            }
+            else
+            {
+                partOfScreen = 2;
+            }
         }
         else
         {
-            partOfScreen = 2;
-            Debug.Log("Part of screen 2 --- "+otherY);
+            if (otherY >= verticalYpositionMin && otherY < (verticalYpositionMin + thirdOfScreenVertical))
+            {
+                partOfScreen = 0;
+            }
+            else if ((otherY >= verticalYpositionMin + thirdOfScreenVertical) && (otherY < (verticalYpositionMin + thirdOfScreenVertical * 2)) )
+            {
+                partOfScreen = 1;
+            }
+            else
+            {
+                partOfScreen = 2;
+            }
         }
         
-        Debug.Log("Degrees: " + degrees + "\nPart of screen: " + partOfScreen );
+        Debug.Log("Degrees: " + degrees1 + "\nPart of screen: " + partOfScreen );
         
         float toret = 0;
         
-        if (degrees == 0)
+        if (degreesNew == 0)
         {
             switch (partOfScreen)
             {
                 case 0:
-                    toret = Random.Range(yPositionMin + thirdOfScreen, horizontalYpositionMax);
+                    toret = Random.Range(horizontalYpositionMin + thirdOfScreenHorizontal, horizontalYpositionMax);
                     break;
                 case 1:
                     int randomThirdOfScreen = Random.Range(0, 2);
                     if (randomThirdOfScreen == 0)
                     {
-                        toret = Random.Range(horizontalYpositionMin, yPositionMin + thirdOfScreen);
+                        toret = Random.Range(horizontalYpositionMin, horizontalYpositionMin + thirdOfScreenHorizontal);
                     }
                     else
                     {
-                        toret = Random.Range(yPositionMin + thirdOfScreen * 2, horizontalYpositionMax);
+                        toret = Random.Range(horizontalYpositionMin + thirdOfScreenHorizontal * 2, horizontalYpositionMax);
                     }
                     break;
                 case 2:
-                    toret = Random.Range(horizontalYpositionMin, yPositionMin + thirdOfScreen * 2);
+                    toret = Random.Range(horizontalYpositionMin, horizontalYpositionMin + thirdOfScreenHorizontal * 2);
                     break;
             }
         }
-        else if (degrees == 45 || degrees == -45)
+        else if (degreesNew == 45 || degreesNew == -45)
         {
             switch (partOfScreen)
             {
                 case 0:
-                    toret = Random.Range(yPositionMin + thirdOfScreen, tiltedYpositionMax);
+                    toret = Random.Range(tiltedYpositionMin + thirdOfScreenTilted, tiltedYpositionMax);
                     break;
                 case 1:
                     int randomThirdOfScreen = Random.Range(0, 2);
                     if (randomThirdOfScreen == 0)
                     {
-                        toret = Random.Range(tiltedYpositionMin, yPositionMin + thirdOfScreen);
+                        toret = Random.Range(tiltedYpositionMin, tiltedYpositionMin + thirdOfScreenTilted);
                     }
                     else
                     {
-                        toret = Random.Range(yPositionMin + thirdOfScreen * 2, tiltedYpositionMax);
+                        toret = Random.Range(tiltedYpositionMin + thirdOfScreenTilted * 2, tiltedYpositionMax);
                     }
                     break;
                 case 2:
-                    toret = Random.Range(tiltedYpositionMin, yPositionMin + thirdOfScreen * 2);
+                    toret = Random.Range(tiltedYpositionMin, tiltedYpositionMin + thirdOfScreenTilted * 2);
                     break;
             }
         }
@@ -381,21 +416,21 @@ public class Spawner : MonoBehaviour
             switch (partOfScreen)
             {
                 case 0:
-                    toret = Random.Range(yPositionMin + thirdOfScreen, verticalYpositionMax);
+                    toret = Random.Range(verticalYpositionMin + thirdOfScreenVertical, verticalYpositionMax);
                     break;
                 case 1:
                     int randomThirdOfScreen = Random.Range(0, 2);
                     if (randomThirdOfScreen == 0)
                     {
-                        toret = Random.Range(verticalYpositionMin, yPositionMin + thirdOfScreen);
+                        toret = Random.Range(verticalYpositionMin, verticalYpositionMin + thirdOfScreenVertical);
                     }
                     else
                     {
-                        toret = Random.Range(yPositionMin + thirdOfScreen * 2, verticalYpositionMax);
+                        toret = Random.Range(verticalYpositionMin + thirdOfScreenVertical * 2, verticalYpositionMax);
                     }
                     break;
                 case 2:
-                    toret = Random.Range(verticalYpositionMin, yPositionMin + thirdOfScreen * 2);
+                    toret = Random.Range(verticalYpositionMin, verticalYpositionMin + thirdOfScreenVertical * 2);
                     break;
             }
         }
