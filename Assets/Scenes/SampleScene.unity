@@ -634,8 +634,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOver: 0
   initialBackgroundScrollSpeed: -4
-  maxBackgroundScrollSpeed: -8
+  maxBackgroundScrollSpeed: -10
   backgroundScrollSpeed: -4
+  numDifficultyLevels: 5
 --- !u!4 &1311788094
 Transform:
   m_ObjectHideFlags: 0
@@ -662,11 +663,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310c313720470f540879218a5ebd67fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructibleFrontThreshold: 15
-  destructibleDownThreshold: 30
-  destructibleUpThreshold: 45
-  hazardBlockThreshold: 60
-  twoHazardBlockThreshold: 80
+  destructibleFrontThreshold: 20
+  destructibleDownThreshold: 40
+  destructibleUpThreshold: 60
+  hazardBlockThreshold: 90
+  twoHazardBlockThreshold: 95
   wallThreshold: 100
   destructibleCollectFrontPrefab: {fileID: 3089004334154520343, guid: 7a352b8516e98714f8ebb16c0edf3c79,
     type: 3}
@@ -678,13 +679,13 @@ MonoBehaviour:
     type: 3}
   collectPrefab: {fileID: 6355645703997300147, guid: f5d8c86e7dd058a42bd831d527df8682,
     type: 3}
-  destructibleCollectFrontPoolSize: 20
+  destructibleCollectFrontPoolSize: 25
   destructibleCollectDownPoolSize: 5
   destructibleCollectUpPoolSize: 5
   hazardBlockPoolSize: 5
   collectsPoolSize: 5
-  minHazardSpawnRate: 1
-  maxHazardSpawnRate: 1.5
+  minHazardSpawnRate: 3
+  maxHazardSpawnRate: 4
   nextHazardSpawn: 1
   minCollectSpawnRate: 5
   maxCollectSpawnRate: 10

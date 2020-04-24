@@ -123,7 +123,7 @@ public class Character : MonoBehaviour
             {
                 if (transform.position.x <= startPosition.x || !onGround)
                 {
-                    transform.position = new Vector2(startPosition.x, transform.position.y);
+                    //transform.position = new Vector2(startPosition.x, transform.position.y);
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     isReturning = false;
                 }
