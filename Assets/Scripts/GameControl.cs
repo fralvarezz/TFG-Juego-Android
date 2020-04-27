@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    private ScoreManager scoreManager;
+    
     public GameObject gameOverText;
 
     public bool gameOver = false;
@@ -49,6 +51,7 @@ public class GameControl : MonoBehaviour
         backgroundScrollSpeed = initialBackgroundScrollSpeed;
         spawner = gameObject.GetComponent<Spawner>();
         difficultyJump = (maxBackgroundScrollSpeed - initialBackgroundScrollSpeed) / (numDifficultyLevels - 1);
+        scoreManager = GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -73,16 +76,9 @@ public class GameControl : MonoBehaviour
 
     }
 
-    public void PlayerDestroyedBlock()
+    public void PlayerScored(string gameTag)
     {
-        if (gameOver)
-        {
-            return;
-        }
-        else
-        {
-            score++;
-        }
+        scoreManager.PlayerScored(gameTag);
     }
 
     private int GetDifficulty()

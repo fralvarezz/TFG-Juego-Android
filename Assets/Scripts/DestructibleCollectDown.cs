@@ -20,6 +20,7 @@ public class DestructibleCollectDown : MonoBehaviour
 
         if (player != null)
         {
+            GameControl.instance.PlayerScored(gameObject.tag);
             transform.position = startPosition;
             triggered = true;
         }

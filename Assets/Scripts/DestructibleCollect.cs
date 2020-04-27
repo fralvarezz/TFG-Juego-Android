@@ -22,6 +22,7 @@ public class DestructibleCollect : MonoBehaviour
         {
             if (player.IsDashing)
             {
+                GameControl.instance.PlayerScored(gameObject.tag);
                 transform.position = startPosition;
                 player.IsDashing = false;
                 player.ReloadDashes();

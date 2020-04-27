@@ -857,6 +857,7 @@ GameObject:
   - component: {fileID: 1311788094}
   - component: {fileID: 1311788093}
   - component: {fileID: 1311788096}
+  - component: {fileID: 1311788095}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -876,6 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976435254f584b245abe8b8020271ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverText: {fileID: 238737653}
   gameOver: 0
   initialBackgroundScrollSpeed: -4
   maxBackgroundScrollSpeed: -10
@@ -896,6 +898,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1311788095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311788092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c195ede35aa1d429e0000eb0b6e4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 1972901859}
+  score: 0
+  pointsPerSecond: 10
 --- !u!114 &1311788096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,7 +1128,7 @@ GameObject:
   - component: {fileID: 1629633693}
   - component: {fileID: 1629633692}
   m_Layer: 5
-  m_Name: ScoreText (1)
+  m_Name: RestartText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

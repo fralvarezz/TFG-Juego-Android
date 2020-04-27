@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 61140021159971188}
   m_Layer: 0
   m_Name: DestructibleCollectFront
-  m_TagString: Untagged
+  m_TagString: DestructibleCollectFront
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

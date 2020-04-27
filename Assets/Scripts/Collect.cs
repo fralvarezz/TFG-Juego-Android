@@ -20,6 +20,7 @@ public class Collect : MonoBehaviour
         if (player != null)
         {
             transform.position = startPosition;
+            GameControl.instance.PlayerScored(gameObject.tag);
         }
     }
 }
