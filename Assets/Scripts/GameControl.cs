@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    public GameObject gameOverText;
+
     public bool gameOver = false;
     public static GameControl instance; //singleton
 
@@ -51,6 +54,11 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameOver && Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        
         if (!gameOver && backgroundScrollSpeed > maxBackgroundScrollSpeed)
         {
             backgroundScrollSpeed -= Time.deltaTime / 10;
@@ -152,6 +160,7 @@ public class GameControl : MonoBehaviour
     public void PlayerDied()
     {
         gameOver = true;
+        gameOverText.SetActive(true);
     }
 
     public float BackgroundScrollSpeed => backgroundScrollSpeed;
