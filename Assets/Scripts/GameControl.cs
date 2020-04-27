@@ -53,7 +53,7 @@ public class GameControl : MonoBehaviour
     {
         if (!gameOver && backgroundScrollSpeed > maxBackgroundScrollSpeed)
         {
-            backgroundScrollSpeed = initialBackgroundScrollSpeed - Mathf.Sqrt(Time.time / 6);
+            backgroundScrollSpeed -= Time.deltaTime / 10;
             checkedDifficulty = GetDifficulty();
 
             if (checkedDifficulty != actualDifficultyLevel)

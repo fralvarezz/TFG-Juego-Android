@@ -637,6 +637,7 @@ MonoBehaviour:
   maxBackgroundScrollSpeed: -10
   backgroundScrollSpeed: -4
   numDifficultyLevels: 5
+  actualDifficultyLevel: 1
 --- !u!4 &1311788094
 Transform:
   m_ObjectHideFlags: 0
@@ -684,8 +685,8 @@ MonoBehaviour:
   destructibleCollectUpPoolSize: 5
   hazardBlockPoolSize: 5
   collectsPoolSize: 5
-  minHazardSpawnRate: 3
-  maxHazardSpawnRate: 4
+  minHazardSpawnRate: 2
+  maxHazardSpawnRate: 3
   nextHazardSpawn: 1
   minCollectSpawnRate: 5
   maxCollectSpawnRate: 10
