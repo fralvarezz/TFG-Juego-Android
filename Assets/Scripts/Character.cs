@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     public float jumpVelocity = 5;
     public int maxNumJumps;
     [SerializeField]
-    private int remainingJumps;
+    //private int remainingJumps;
     private BetterJump betterJumpScript;
     private bool jumpRequest;
     
@@ -56,7 +56,7 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         polygonCollider2D = GetComponent<PolygonCollider2D>(); 
         startPosition = transform.position;
-        remainingJumps = maxNumJumps;
+        //remainingJumps = maxNumJumps;
         remainingDashes = maxNumDashes;
         remainingDownDashes = maxNumDownDashes;
         betterJumpScript = GetComponent<BetterJump>();
@@ -72,11 +72,7 @@ public class Character : MonoBehaviour
             
             if(jumpRequest)
             {
-                if (remainingJumps > 0)
-                {
-                    Jump();
-                    remainingJumps--;
-                }
+                Jump();
                 jumpRequest = false;
             }
 
@@ -144,7 +140,7 @@ public class Character : MonoBehaviour
         if (onGround)
         {
             ReloadDashes();
-            ReloadJumps();
+            //ReloadJumps();
         }
     }
 
@@ -248,7 +244,7 @@ public class Character : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform"))
         {
-            ReloadJumps();
+            //ReloadJumps();
             onGround = true;
         }
     }
@@ -270,10 +266,10 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void ReloadJumps()
+    /*private void ReloadJumps()
     {
         remainingJumps = maxNumJumps;
-    }
+    }*/
 
     public void ReloadDashes()
     {
