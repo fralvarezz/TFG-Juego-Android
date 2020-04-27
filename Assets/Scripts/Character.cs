@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    private Coroutine co;
+
     private Rigidbody2D rb;
     private PolygonCollider2D polygonCollider2D;
     private bool isDead = false;
@@ -154,15 +156,20 @@ public class Character : MonoBehaviour
     
     private void Dash()
     {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
         //rb.velocity = Vector2.zero;
-        rb.velocity = Vector2.right * dashSpeed;
         rb.drag = 10;
+        rb.gravityScale = 2f;
+        rb.velocity = Vector2.right * dashSpeed;
         StartCoroutine(DashWait());
     }
 
     IEnumerator DashWait()
     {
-        StartCoroutine(ReduceDragDash(.4f));
+        co = StartCoroutine(ReduceDragDash(.4f));
         
         rb.gravityScale = 0;
         betterJumpScript.enabled = false;
@@ -197,15 +204,20 @@ public class Character : MonoBehaviour
     
     private void DownDash()
     {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
         //rb.velocity = Vector2.zero;
-        rb.velocity = Vector2.down * downDashSpeed;
         rb.drag = 2;
+        rb.gravityScale = 2f;
+        rb.velocity = Vector2.down * downDashSpeed;
         StartCoroutine(DownDashWait());
     }
 
     IEnumerator DownDashWait()
     {
-        StartCoroutine(ReduceDragDash(.4f));
+        co = StartCoroutine(ReduceDragDash(.4f));
         
         rb.gravityScale = 0;
         betterJumpScript.enabled = false;
