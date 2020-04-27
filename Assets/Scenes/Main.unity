@@ -812,7 +812,7 @@ MonoBehaviour:
     m_Bits: 256
   jumpVelocity: 8.25
   maxNumJumps: 10
-  remainingJumps: 0
+  betterJumpScript: {fileID: 0}
   dashSpeed: 20
   dragDash: 14
   maxNumDashes: 1
@@ -913,6 +913,9 @@ MonoBehaviour:
   scoreText: {fileID: 1972901859}
   score: 0
   pointsPerSecond: 10
+  currentChain: 0
+  bestChain: 0
+  chainTime: 2.25
 --- !u!114 &1311788096
 MonoBehaviour:
   m_ObjectHideFlags: 0
