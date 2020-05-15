@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class RepeatingBackgroung : MonoBehaviour
 {
-    private BoxCollider2D groundCollider;
+    //private BoxCollider2D groundCollider;
+    private SpriteRenderer spriteRenderer;
     private float groundHorizontalLength;
     
     // Start is called before the first frame update
     void Start()
     {
-        groundCollider = GetComponent<BoxCollider2D>();
-        groundHorizontalLength = groundCollider.size.x * transform.localScale.x;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        //groundCollider = GetComponent<BoxCollider2D>();
+        groundHorizontalLength =  spriteRenderer.size.x;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (transform.position.x < -groundHorizontalLength)
         {
