@@ -5,6 +5,29 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    //Animation variables
+    private Animator anim;
+    [SerializeField]
+    private PolygonCollider2D[] colliders;
+    /*
+     * 0 is default
+     * 1 is punch
+     * 2 is kick down
+     * 3 is take off
+     * 4 is jumping
+     * 5 is falling down
+     * 6 is running 1
+     * 7 is running 2
+     * 8 is running 3
+     * 0 is running 4
+     * 9 is running 5
+     * 10 is runnning 6
+     * 11 is running 7
+     * 0 is runnning 8
+     */
+    
+    private int currentColliderIndex = 0;
+    
     private Coroutine co;
 
     private Rigidbody2D rb;
@@ -53,6 +76,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         polygonCollider2D = GetComponent<PolygonCollider2D>(); 
         startPosition = transform.position;
@@ -132,6 +156,28 @@ public class Character : MonoBehaviour
             }
             
         }
+
+        if (isDashing)
+        {
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isFalling", false);
+        }
+        else if (isDownDashing)
+        {
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isFalling", false);
+        }
+        else if (rb.velocity.y > 0)
+        {
+            anim.SetBool("isJumping", true);
+            anim.SetBool("isFalling", false);
+        }
+        else if(rb.velocity.y < 0)
+        {
+            anim.SetBool("isFalling", true);
+            anim.SetBool("isJumping", false);
+        }
+
         
     }
 
@@ -147,6 +193,7 @@ public class Character : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+        anim.SetTrigger("takeOff");
     }
     
     
@@ -156,6 +203,8 @@ public class Character : MonoBehaviour
         {
             StopCoroutine(co);
         }
+        anim.SetTrigger("punch");
+
         //rb.velocity = Vector2.zero;
         rb.drag = 10;
         rb.gravityScale = 2f;
@@ -204,6 +253,7 @@ public class Character : MonoBehaviour
         {
             StopCoroutine(co);
         }
+        anim.SetTrigger("kickDown");
         //rb.velocity = Vector2.zero;
         rb.drag = 2;
         rb.gravityScale = 2f;
@@ -246,6 +296,9 @@ public class Character : MonoBehaviour
         {
             //ReloadJumps();
             onGround = true;
+            anim.SetBool("isRunning", true);
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isFalling", false);
         }
     }
 
@@ -254,6 +307,7 @@ public class Character : MonoBehaviour
         if (other.gameObject.CompareTag("Platform"))
         {
             onGround = false;
+            anim.SetBool("isRunning", false);
         }
     }
 
@@ -335,5 +389,12 @@ public class Character : MonoBehaviour
         //sprite
         isDead = true;
         GameControl.instance.PlayerDied();
+    }
+    
+    public void SetColliderForSprite( int spriteNum )
+    {
+        colliders[currentColliderIndex].enabled = false;
+        currentColliderIndex = spriteNum;
+        colliders[currentColliderIndex].enabled = true;
     }
 }
