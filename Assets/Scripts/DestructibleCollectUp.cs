@@ -66,6 +66,7 @@ public class DestructibleCollectUp : MonoBehaviour
                 GameControl.instance.PlayerScored(gameObject.tag);
                 player.IsDownDashing = false;
                 player.ReloadDownDashes();
+                player.AddComplementaryForceUpLeft();
                 transform.position = startPosition;
             }
             else

@@ -52,9 +52,6 @@ public class Spawner : MonoBehaviour
     private Vector2 destructibleCollectUpPoolPosition = new Vector2(-15f, -25f);
     private int currentDestructibleUp = 0;
     
-    [Header("Destructible Walls")]
-    private float wallStartingY = -2.4594f;
-    
     [Header("Hazard Blocks")]
     private GameObject[] hazardBlocks;
     private Vector2 hazardBlockPoolPosition = new Vector2(-15f, -30f);
@@ -361,7 +358,6 @@ public class Spawner : MonoBehaviour
             }
         }
         
-        Debug.Log("Degrees: " + degrees1 + "\nPart of screen: " + partOfScreen );
         
         float toret = 0;
         
@@ -440,8 +436,8 @@ public class Spawner : MonoBehaviour
 
     private void SpawnDestructibleWall()
     {
-        float spawnYPosition = wallStartingY;
-        for (int i = 0; i <= 9; i++)
+        float spawnYPosition = yPositionMin;
+        for (int i = 0; i <= 7; i++)
         {
             destructibleCollectsFront[currentDestructibleFront].transform.position = new Vector2(spawnXPosition, spawnYPosition);
             currentDestructibleFront++;
@@ -449,7 +445,7 @@ public class Spawner : MonoBehaviour
             {
                 currentDestructibleFront = 0;
             }
-            spawnYPosition++;
+            spawnYPosition+=1.2f;
         }
 
     }

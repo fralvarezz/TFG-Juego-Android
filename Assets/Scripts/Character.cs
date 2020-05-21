@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
     private int currentColliderIndex = 0;
     
     private Coroutine co;
+    private Coroutine dashWait;
 
     private Rigidbody2D rb;
     private PolygonCollider2D polygonCollider2D;
@@ -135,23 +136,34 @@ public class Character : MonoBehaviour
 
             if (!isReturning)
             {
-                if (transform.position.x > startPosition.x && !isDashing && onGround)
+                if (transform.position.x > startPosition.x && !isDashing && !isDownDashing && onGround)
                 {
                     rb.velocity += Vector2.right * (GameControl.instance.BackgroundScrollSpeed / 2);
                     isReturning = true;
                 }
+
+                if (transform.position.x < startPosition.x)
+                {
+                    transform.position = new Vector2(startPosition.x, transform.position.y);
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                }
             }
             else
             {
-                if (transform.position.x <= startPosition.x || !onGround)
+                if (transform.position.x <= startPosition.x)
                 {
-                    //transform.position = new Vector2(startPosition.x, transform.position.y);
+                    transform.position = new Vector2(startPosition.x, transform.position.y);
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     isReturning = false;
                 }
-                else
+                
+                if(onGround)
                 {
                     rb.velocity = new Vector2(GameControl.instance.BackgroundScrollSpeed / 2, rb.velocity.y);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
                 }
             }
             
@@ -205,11 +217,11 @@ public class Character : MonoBehaviour
         }
         anim.SetTrigger("punch");
 
-        //rb.velocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
         rb.drag = 10;
         rb.gravityScale = 2f;
         rb.velocity = Vector2.right * dashSpeed;
-        StartCoroutine(DashWait());
+        dashWait = StartCoroutine(DashWait());
     }
 
     IEnumerator DashWait()
@@ -226,7 +238,14 @@ public class Character : MonoBehaviour
         rb.gravityScale = 2f;
         betterJumpScript.enabled = true;
         isDashing = false;
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        if (rb.velocity.x > 0)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+        }
     }
 
     IEnumerator ReduceDragDash(float duration)
@@ -258,7 +277,7 @@ public class Character : MonoBehaviour
         rb.drag = 2;
         rb.gravityScale = 2f;
         rb.velocity = Vector2.down * downDashSpeed;
-        StartCoroutine(DownDashWait());
+        dashWait = StartCoroutine(DownDashWait());
     }
 
     IEnumerator DownDashWait()
@@ -299,6 +318,17 @@ public class Character : MonoBehaviour
             anim.SetBool("isRunning", true);
             anim.SetBool("isJumping", false);
             anim.SetBool("isFalling", false);
+        }
+        else if (other.gameObject.CompareTag("DestructibleCollectDown")
+                 || other.gameObject.CompareTag("DestructibleCollectUp")
+                 || other.gameObject.CompareTag("DestructibleCollectFront"))
+        {
+            if (co != null)
+            {
+                StopCoroutine(co);
+            }
+            isDashing = false;
+            isDownDashing = false;
         }
     }
 
@@ -389,6 +419,30 @@ public class Character : MonoBehaviour
         //sprite
         isDead = true;
         GameControl.instance.PlayerDied();
+    }
+
+    public void AddComplementaryForceUpLeft()
+    {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
+
+        rb.drag = 0;
+        rb.velocity = (Vector2.zero);
+        rb.AddForce(new Vector2(-180,120));
+    }
+    
+    public void AddComplementaryForceDownLeft()
+    {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
+
+        rb.drag = 0;
+        rb.velocity = (Vector2.zero);
+        rb.AddForce(new Vector2(-180,-70));
     }
     
     public void SetColliderForSprite( int spriteNum )

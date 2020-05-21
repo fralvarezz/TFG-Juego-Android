@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    public AudioSource mainTheme;
+    
     private ScoreManager scoreManager;
     
     public GameObject gameOverText;
@@ -157,6 +159,10 @@ public class GameControl : MonoBehaviour
     {
         gameOver = true;
         gameOverText.SetActive(true);
+        if (mainTheme.isPlaying)
+        {
+            mainTheme.Stop();
+        }
     }
 
     public float BackgroundScrollSpeed => backgroundScrollSpeed;

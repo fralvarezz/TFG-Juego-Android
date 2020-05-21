@@ -23,6 +23,7 @@ public class DestructibleCollectDown : MonoBehaviour
             GameControl.instance.PlayerScored(gameObject.tag);
             transform.position = startPosition;
             triggered = true;
+            player.AddComplementaryForceDownLeft();
         }
     }
 
@@ -40,6 +41,7 @@ public class DestructibleCollectDown : MonoBehaviour
             else
             {
                 triggered = false;
+                player.AddComplementaryForceDownLeft();
             }
         }
     }
