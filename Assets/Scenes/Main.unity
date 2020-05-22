@@ -2030,12 +2030,10 @@ MonoBehaviour:
   scoreText: {fileID: 1972901859}
   addedScore: {fileID: 974804892}
   score: 0
-  actualScore: 0
-  futureScore: 0
   pointsPerSecond: 10
   currentChain: 0
   bestChain: 0
-  chainTime: 2.25
+  chainTime: 3
   collectiblePoints: 150
   specialCollectPoints: 1000
 --- !u!114 &1311788096
@@ -2077,8 +2075,6 @@ MonoBehaviour:
   minCollectSpawnRate: 5
   maxCollectSpawnRate: 10
   nextCollectSpawn: 4
-  yPositionMin: -2.4
-  yPositionMax: 3.9
   horizontalYpositionMin: -2.67
   horizontalYpositionMax: 4.11
   tiltedYpositionMin: -1.75
@@ -2087,6 +2083,8 @@ MonoBehaviour:
   verticalYpositionMax: 3.33
   destructDownYpositionMin: -1.1
   destructUpYpositionMax: 2.75
+  destructYPositionMax: 3.9
+  destructYPositionMin: -2.4
 --- !u!1 &1451068560
 GameObject:
   m_ObjectHideFlags: 0

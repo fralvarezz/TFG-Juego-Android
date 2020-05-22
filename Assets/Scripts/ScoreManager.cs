@@ -10,10 +10,7 @@ public class ScoreManager : MonoBehaviour
     public Text addedScore;
 
     public float score;
-
-    public float actualScore;
     private float falseScore;
-    public float futureScore;
     
     public float pointsPerSecond;
 
@@ -120,7 +117,7 @@ public class ScoreManager : MonoBehaviour
         {
             toret = 1.2f;
         }
-        else if (chain == 5)
+        else if (chain <= 5)
         {
             toret = 1.4f;
         }

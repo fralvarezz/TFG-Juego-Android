@@ -70,8 +70,6 @@ public class Spawner : MonoBehaviour
     private float nextCollectSpawn = 4f;
     
     [Header("Screen positioning")]
-    public float yPositionMin;
-    public float yPositionMax;
     private float thirdOfScreen;
     private float spawnXPosition = 10f;
     
@@ -89,6 +87,9 @@ public class Spawner : MonoBehaviour
     [Header("Destructibles positioning")]
     public float destructDownYpositionMin;
     public float destructUpYpositionMax;
+    public float destructYPositionMax;
+    public float destructYPositionMin;
+    
     
     
     private float timeSinceLastSpawned;
@@ -196,7 +197,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnDestructibleFront()
     {
-        float spawnYPosition = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
+        float spawnYPosition = Random.Range(destructYPositionMin, destructYPositionMax);
         destructibleCollectsFront[currentDestructibleFront].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentDestructibleFront++;
         if (currentDestructibleFront >= destructibleCollectFrontPoolSize)
@@ -207,7 +208,7 @@ public class Spawner : MonoBehaviour
     
     private void SpawnDestructibleDown()
     {
-        float spawnYPosition = Random.Range(destructDownYpositionMin, horizontalYpositionMax);
+        float spawnYPosition = Random.Range(destructDownYpositionMin, destructYPositionMax);
         destructibleCollectsDown[currentDestructibleDown].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentDestructibleDown++;
         if (currentDestructibleDown >= destructibleCollectDownPoolSize)
@@ -218,7 +219,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnDestructibleUp()
     {
-        float spawnYPosition = Random.Range(horizontalYpositionMin, destructUpYpositionMax);
+        float spawnYPosition = Random.Range(destructYPositionMin, destructUpYpositionMax);
         destructibleCollectsUp[currentDestructibleUp].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentDestructibleUp++;
         if (currentDestructibleUp >= destructibleCollectUpPoolSize)
@@ -295,14 +296,18 @@ public class Spawner : MonoBehaviour
         if (degrees == 0)
         {
             toret = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
+            Debug.Log("" + toret + " " + degrees);
         }
         else if (degrees == 45 || degrees == -45)
         {
             toret = Random.Range(tiltedYpositionMin, tiltedYpositionMax);
+            Debug.Log("" + toret + " " + degrees);
         }
         else
         {
             toret = Random.Range(verticalYpositionMin, verticalYpositionMax);
+            Debug.Log(verticalYpositionMin + ", " + verticalYpositionMax);
+            Debug.Log("" + toret + " " + degrees);
         }
 
         return toret;
@@ -436,7 +441,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnDestructibleWall()
     {
-        float spawnYPosition = yPositionMin;
+        float spawnYPosition = destructYPositionMin;
         for (int i = 0; i <= 7; i++)
         {
             destructibleCollectsFront[currentDestructibleFront].transform.position = new Vector2(spawnXPosition, spawnYPosition);
@@ -445,7 +450,7 @@ public class Spawner : MonoBehaviour
             {
                 currentDestructibleFront = 0;
             }
-            spawnYPosition+=1.5f;
+            spawnYPosition+=1.7f;
         }
 
     }
