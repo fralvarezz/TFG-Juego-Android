@@ -6,11 +6,13 @@ using UnityEngine;
 public class DestructibleCollectUp : MonoBehaviour
 {
     private Vector2 startPosition;
+    private AudioSource breakSound;
     //private bool triggered;
 
     private void Start()
     {
         startPosition = (Vector2) transform.position;
+        breakSound = GetComponent<AudioSource>();
     }
     
     /*
@@ -68,6 +70,7 @@ public class DestructibleCollectUp : MonoBehaviour
                 player.ReloadDownDashes();
                 player.AddComplementaryForceUpLeft();
                 transform.position = startPosition;
+                breakSound.Play();
             }
             else
             {

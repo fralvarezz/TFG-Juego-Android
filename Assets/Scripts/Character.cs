@@ -416,7 +416,8 @@ public class Character : MonoBehaviour
     public void PlayerDied()
     {
         rb.velocity = Vector2.zero;
-        //sprite
+        rb.constraints = RigidbodyConstraints2D.None;
+        anim.SetTrigger("die");
         isDead = true;
         GameControl.instance.PlayerDied();
     }

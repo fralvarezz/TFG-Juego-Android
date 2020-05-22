@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameControl : MonoBehaviour
     private ScoreManager scoreManager;
     
     public GameObject gameOverText;
+
+    public Text fps;
 
     public bool gameOver = false;
     public static GameControl instance; //singleton
@@ -45,7 +48,9 @@ public class GameControl : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+        QualitySettings.vSyncCount = 0;  
+        Application.targetFrameRate = 60;
+
     }
 
     void Start()
@@ -59,6 +64,7 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (gameOver && Input.GetMouseButtonDown(0))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -76,6 +82,7 @@ public class GameControl : MonoBehaviour
             }
         }
 
+        fps.text = "FPS: " + 1.0f / Time.deltaTime;
     }
 
     public void PlayerScored(string gameTag)

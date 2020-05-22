@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class DestructibleCollect : MonoBehaviour
 {
-
+    private AudioSource breakSound;
     private Vector2 startPosition;
 
     private void Start()
     {
         startPosition = (Vector2) transform.position;
+        breakSound = GetComponent<AudioSource>();
     }
     
     
@@ -27,6 +28,7 @@ public class DestructibleCollect : MonoBehaviour
                 player.IsDashing = false;
                 player.AddComplementaryForceUpLeft();
                 player.ReloadDashes();
+                breakSound.Play();
             }
             else
             {

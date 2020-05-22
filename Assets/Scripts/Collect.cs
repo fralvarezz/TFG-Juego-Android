@@ -6,10 +6,13 @@ using UnityEngine;
 public class Collect : MonoBehaviour
 {
     private Vector2 startPosition;
+
+    private AudioSource pickUp;
     
     private void Start()
     {
         startPosition = (Vector2) transform.position;
+        pickUp = GetComponent<AudioSource>();
     }
     
 
@@ -21,6 +24,7 @@ public class Collect : MonoBehaviour
         {
             transform.position = startPosition;
             GameControl.instance.PlayerScored(gameObject.tag);
+            pickUp.Play();
         }
     }
 }

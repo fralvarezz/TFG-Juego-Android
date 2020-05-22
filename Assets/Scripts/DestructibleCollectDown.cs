@@ -7,10 +7,12 @@ public class DestructibleCollectDown : MonoBehaviour
 {
     private Vector2 startPosition;
     private bool triggered;
-
+    private AudioSource breakSound;
+    
     private void Start()
     {
         startPosition = (Vector2) transform.position;
+        breakSound = GetComponent<AudioSource>();
     }
     
     
@@ -24,6 +26,7 @@ public class DestructibleCollectDown : MonoBehaviour
             transform.position = startPosition;
             triggered = true;
             player.AddComplementaryForceDownLeft();
+            breakSound.Play();
         }
     }
 

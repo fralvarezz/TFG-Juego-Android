@@ -445,7 +445,7 @@ public class Spawner : MonoBehaviour
             {
                 currentDestructibleFront = 0;
             }
-            spawnYPosition+=1.2f;
+            spawnYPosition+=1.5f;
         }
 
     }

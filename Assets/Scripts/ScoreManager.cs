@@ -7,8 +7,13 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     public Text scoreText;
+    public Text addedScore;
 
     public float score;
+
+    public float actualScore;
+    private float falseScore;
+    public float futureScore;
     
     public float pointsPerSecond;
 
@@ -20,7 +25,10 @@ public class ScoreManager : MonoBehaviour
     private float remainingChainTime;
     public float chainTime;
     private float scoreDuringChain;
-    
+
+    [Header("Points")]
+    public int collectiblePoints;
+    public int specialCollectPoints;
     
     // Start is called before the first frame update
     void Start()
@@ -33,29 +41,37 @@ public class ScoreManager : MonoBehaviour
     {
         if (!GameControl.instance.gameOver)
         {
-            score += pointsPerSecond * Time.deltaTime;
-
-            scoreText.text = "Score: " + Mathf.RoundToInt(score);
-        }
-
-        if (activeChain)
-        {
-            if (currentChain > bestChain)
+            if (activeChain)
             {
-                bestChain = currentChain;
-            }
+                if (currentChain > bestChain)
+                {
+                    bestChain = currentChain;
+                }
             
-            if (remainingChainTime <= 0)
-            {
-                score += (scoreDuringChain * FindMultiplier(currentChain));
-                activeChain = false;
-                currentChain = 0;
-                scoreDuringChain = 0;
+                if (remainingChainTime <= 0)
+                {
+                    activeChain = false;
+                    score += (scoreDuringChain * FindMultiplier(currentChain));
+                    currentChain = 0;
+                    scoreDuringChain = 0;
+                    addedScore.text = "";
+                }
+                else
+                {
+                    scoreDuringChain += pointsPerSecond * Time.deltaTime;
+                    
+                    remainingChainTime -= Time.deltaTime;
+
+                    addedScore.text = "+" + Mathf.RoundToInt(scoreDuringChain) + " x" + FindMultiplier(currentChain);
+                }
             }
             else
             {
-                remainingChainTime -= Time.deltaTime;
+                score += pointsPerSecond * Time.deltaTime;
             }
+            
+            scoreText.text = "SCORE: " + Mathf.RoundToInt(score);
+            
         }
         
     }
@@ -65,16 +81,16 @@ public class ScoreManager : MonoBehaviour
         switch (gameTag)
         {
             case "DestructibleCollectDown":
-                AddScore(score);
+                AddScore(collectiblePoints);
                 break;
             case "DestructibleCollectUp":
-                AddScore(score);
+                AddScore(collectiblePoints);
                 break;
             case "DestructibleCollectFront":
-                AddScore(score);
+                AddScore(collectiblePoints);
                 break;
             case "Collect":
-                score += 1000;
+                score += specialCollectPoints;
                 break;
         }
 
