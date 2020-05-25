@@ -296,18 +296,18 @@ public class Spawner : MonoBehaviour
         if (degrees == 0)
         {
             toret = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
-            Debug.Log("" + toret + " " + degrees);
+            //Debug.Log("" + toret + " " + degrees);
         }
         else if (degrees == 45 || degrees == -45)
         {
             toret = Random.Range(tiltedYpositionMin, tiltedYpositionMax);
-            Debug.Log("" + toret + " " + degrees);
+            //Debug.Log("" + toret + " " + degrees);
         }
         else
         {
             toret = Random.Range(verticalYpositionMin, verticalYpositionMax);
-            Debug.Log(verticalYpositionMin + ", " + verticalYpositionMax);
-            Debug.Log("" + toret + " " + degrees);
+            //Debug.Log(verticalYpositionMin + ", " + verticalYpositionMax);
+            //Debug.Log("" + toret + " " + degrees);
         }
 
         return toret;
@@ -442,7 +442,7 @@ public class Spawner : MonoBehaviour
     private void SpawnDestructibleWall()
     {
         float spawnYPosition = destructYPositionMin;
-        for (int i = 0; i <= 7; i++)
+        for (int i = 0; i <= 4; i++)
         {
             destructibleCollectsFront[currentDestructibleFront].transform.position = new Vector2(spawnXPosition, spawnYPosition);
             currentDestructibleFront++;
@@ -450,7 +450,7 @@ public class Spawner : MonoBehaviour
             {
                 currentDestructibleFront = 0;
             }
-            spawnYPosition+=1.7f;
+            spawnYPosition+=1.9f;
         }
 
     }

@@ -8,6 +8,8 @@ public class DestructibleCollect : MonoBehaviour
     private AudioSource breakSound;
     private Vector2 startPosition;
 
+    private bool triggered;
+
     private void Start()
     {
         startPosition = (Vector2) transform.position;
@@ -25,6 +27,7 @@ public class DestructibleCollect : MonoBehaviour
             {
                 GameControl.instance.PlayerScored(gameObject.tag);
                 transform.position = startPosition;
+                triggered = true;
                 player.IsDashing = false;
                 player.AddComplementaryForceUpLeft();
                 player.ReloadDashes();
@@ -33,6 +36,24 @@ public class DestructibleCollect : MonoBehaviour
             else
             {
                 player.PlayerDied();
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Character player = other.gameObject.GetComponent<Character>();
+
+        if (player != null)
+        {
+            if (!triggered)
+            {
+                player.PlayerDied();
+            }
+            else
+            {
+                triggered = false;
+                player.AddComplementaryForceDownLeft();
             }
         }
     }

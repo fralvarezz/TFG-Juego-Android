@@ -3769,7 +3769,7 @@ MonoBehaviour:
     type: 3}
   collectPrefab: {fileID: 6355645703997300147, guid: f5d8c86e7dd058a42bd831d527df8682,
     type: 3}
-  destructibleCollectFrontPoolSize: 20
+  destructibleCollectFrontPoolSize: 10
   destructibleCollectDownPoolSize: 5
   destructibleCollectUpPoolSize: 5
   hazardBlockPoolSize: 5
@@ -3788,8 +3788,8 @@ MonoBehaviour:
   verticalYpositionMax: 3.33
   destructDownYpositionMin: -1.1
   destructUpYpositionMax: 2.75
-  destructYPositionMax: 3.9
-  destructYPositionMin: -2.4
+  destructYPositionMax: 3.7
+  destructYPositionMin: -2.2
 --- !u!1 &1369820023
 GameObject:
   m_ObjectHideFlags: 0

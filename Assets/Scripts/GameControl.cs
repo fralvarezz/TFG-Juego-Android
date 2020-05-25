@@ -48,7 +48,7 @@ public class GameControl : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        QualitySettings.vSyncCount = 0;  
+        QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 60;
 
     }
@@ -83,18 +83,7 @@ public class GameControl : MonoBehaviour
         }
 
         fps.text = "FPS: " + 1.0f / Time.deltaTime;
-
-        if (PauseMenu.GameIsPaused)
-        {
-            mainTheme.Pause();
-        }
-        else
-        {
-            if (!mainTheme.isPlaying)
-            {
-                mainTheme.UnPause();
-            }
-        }
+        
     }
 
     public void PlayerScored(string gameTag)

@@ -44,7 +44,7 @@ public class DestructibleCollectDown : MonoBehaviour
             else
             {
                 triggered = false;
-                player.AddComplementaryForceDownLeft();
+                //player.AddComplementaryForceDownLeft();
             }
         }
     }
