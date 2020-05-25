@@ -83,6 +83,18 @@ public class GameControl : MonoBehaviour
         }
 
         fps.text = "FPS: " + 1.0f / Time.deltaTime;
+
+        if (PauseMenu.GameIsPaused)
+        {
+            mainTheme.Pause();
+        }
+        else
+        {
+            if (!mainTheme.isPlaying)
+            {
+                mainTheme.UnPause();
+            }
+        }
     }
 
     public void PlayerScored(string gameTag)
