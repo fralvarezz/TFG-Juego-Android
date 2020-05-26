@@ -1496,8 +1496,8 @@ MonoBehaviour:
   m_RefResolutionY: 180
   m_UpscaleRT: 0
   m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
+  m_CropFrameX: 1
+  m_CropFrameY: 1
   m_StretchFill: 0
 --- !u!20 &519420031
 Camera:
@@ -2963,9 +2963,6 @@ MonoBehaviour:
   - {fileID: 1203457594}
   - {fileID: 1203457593}
   onGround: 0
-  platformLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
   jumpVelocity: 8.25
   maxNumJumps: 10
   betterJumpScript: {fileID: 0}
@@ -3702,7 +3699,7 @@ MonoBehaviour:
   fps: {fileID: 1678518405}
   gameOver: 0
   initialBackgroundScrollSpeed: -4
-  maxBackgroundScrollSpeed: -10
+  maxBackgroundScrollSpeed: -8
   backgroundScrollSpeed: -4
   numDifficultyLevels: 5
   actualDifficultyLevel: 1

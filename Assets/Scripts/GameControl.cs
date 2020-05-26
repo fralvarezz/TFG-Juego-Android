@@ -95,11 +95,11 @@ public class GameControl : MonoBehaviour
     {
         int difficultyLevel = 1;
         
-        if (backgroundScrollSpeed <= initialBackgroundScrollSpeed - 8)
+        if (backgroundScrollSpeed <= initialBackgroundScrollSpeed - 4)
         {
             difficultyLevel = 5;
         }
-        else if(backgroundScrollSpeed <= initialBackgroundScrollSpeed - 5)
+        else if(backgroundScrollSpeed <= initialBackgroundScrollSpeed - 3)
         {
             difficultyLevel = 4;
         }
