@@ -65,7 +65,7 @@ public class GameControl : MonoBehaviour
     void Update()
     {
         
-        if (gameOver && Input.GetMouseButtonDown(0))
+        if (gameOver && Input.GetMouseButtonUp(0))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

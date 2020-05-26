@@ -37,8 +37,6 @@ public class Character : MonoBehaviour
     [SerializeField]
     private bool onGround;
     private Vector2 startPosition;
-
-    [SerializeField] private LayerMask platformLayerMask;
     
     [Header("Jump Settings")]
     [Range(0,10)]
@@ -71,8 +69,7 @@ public class Character : MonoBehaviour
     private Touch touch;
     private Vector2 startTouchPosition;
     private Vector2 endTouchPosition;
-
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -100,8 +97,6 @@ public class Character : MonoBehaviour
                 Jump();
                 jumpRequest = false;
             }
-
-            
             
             if(dashRequest)
             {
@@ -124,16 +119,8 @@ public class Character : MonoBehaviour
                 downDashRequest = false;
             }
             
-            /*
-            if (IsGrounded())
-            {
-                ReloadJumps();
-                ReloadDashes();
-            }
-            */
 
             //Return to original x position if conditions apply
-
             if (!isReturning)
             {
                 if (transform.position.x > startPosition.x && !isDashing && !isDownDashing && onGround)
