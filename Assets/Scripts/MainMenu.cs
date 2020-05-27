@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     private TMP_Text signInButtonText;
     public Button signInButton;
     public Text authStatus;
+    public GameObject leaderboardsButton;
     
     void Start()
     {
@@ -39,6 +40,7 @@ public class MainMenu : MonoBehaviour
     
     private void Update()
     {
+        leaderboardsButton.SetActive(Social.localUser.authenticated);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -86,6 +88,15 @@ public class MainMenu : MonoBehaviour
             // Show failure message
             signInButtonText.text = "LOGIN";
             authStatus.text = "Login fallido";
+        }
+    }
+    
+    public void ShowLeaderboards() {
+        if (PlayGamesPlatform.Instance.localUser.authenticated) {
+            PlayGamesPlatform.Instance.ShowLeaderboardUI();
+        }
+        else {
+            Debug.Log("Cannot show leaderboard: not authenticated");
         }
     }
     

@@ -167,6 +167,7 @@ public class GameControl : MonoBehaviour
     {
         gameOver = true;
         gameOverText.SetActive(true);
+        scoreManager.ReportScore();
         if (mainTheme.isPlaying)
         {
             mainTheme.Stop();

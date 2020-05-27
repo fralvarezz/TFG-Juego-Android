@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -139,5 +140,19 @@ public class ScoreManager : MonoBehaviour
         }
 
         return toret;
+    }
+
+    public void ReportScore()
+    {
+        if (PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            // Note: make sure to add 'using GooglePlayGames'
+            PlayGamesPlatform.Instance.ReportScore(Mathf.RoundToInt(score),
+                GPGSIds.leaderboard_score,
+                (bool success) =>
+                {
+                    Debug.Log("(Rockpunch) Leaderboard update success: " + success);
+                });
+        }
     }
 }
