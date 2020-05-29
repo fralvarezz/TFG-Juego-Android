@@ -26,6 +26,9 @@ public class GameControl : MonoBehaviour
     
     [SerializeField]
     private float backgroundScrollSpeed;
+    
+    [SerializeField]
+    private float nextBackgroundScrollSpeed;
 
     private Spawner spawner;
     
@@ -56,6 +59,7 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         backgroundScrollSpeed = initialBackgroundScrollSpeed;
+        nextBackgroundScrollSpeed = backgroundScrollSpeed;
         spawner = gameObject.GetComponent<Spawner>();
         difficultyJump = (maxBackgroundScrollSpeed - initialBackgroundScrollSpeed) / (numDifficultyLevels - 1);
         scoreManager = GetComponent<ScoreManager>();
@@ -72,7 +76,12 @@ public class GameControl : MonoBehaviour
         
         if (!gameOver && backgroundScrollSpeed > maxBackgroundScrollSpeed)
         {
-            backgroundScrollSpeed -= Time.deltaTime / 10;
+            nextBackgroundScrollSpeed -= Time.deltaTime / 10;
+            if (backgroundScrollSpeed - 0.25f >= nextBackgroundScrollSpeed)
+            {
+                backgroundScrollSpeed = nextBackgroundScrollSpeed;
+            }
+            
             checkedDifficulty = GetDifficulty();
 
             if (checkedDifficulty != actualDifficultyLevel)
