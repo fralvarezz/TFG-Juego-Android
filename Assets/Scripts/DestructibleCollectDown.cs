@@ -8,11 +8,13 @@ public class DestructibleCollectDown : MonoBehaviour
     private Vector2 startPosition;
     private bool triggered;
     private AudioSource breakSound;
+    private CameraShake cameraShake;
     
     private void Start()
     {
         startPosition = (Vector2) transform.position;
         breakSound = GetComponent<AudioSource>();
+        cameraShake = Camera.main.GetComponent<CameraShake>();
     }
     
     
@@ -27,6 +29,7 @@ public class DestructibleCollectDown : MonoBehaviour
             triggered = true;
             player.AddComplementaryForceDownLeft();
             breakSound.Play();
+            StartCoroutine(cameraShake.Shake(.15f, .1f));
         }
     }
 

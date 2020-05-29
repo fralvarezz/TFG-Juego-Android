@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DestructibleCollect : MonoBehaviour
 {
+    private CameraShake cameraShake;
+    
     private AudioSource breakSound;
     private Vector2 startPosition;
 
@@ -14,6 +16,7 @@ public class DestructibleCollect : MonoBehaviour
     {
         startPosition = (Vector2) transform.position;
         breakSound = GetComponent<AudioSource>();
+        cameraShake = Camera.main.GetComponent<CameraShake>();
     }
     
     
@@ -32,6 +35,7 @@ public class DestructibleCollect : MonoBehaviour
                 player.AddComplementaryForceUpLeft();
                 player.ReloadDashes();
                 breakSound.Play();
+                StartCoroutine(cameraShake.Shake(.15f, .1f));
             }
             else
             {

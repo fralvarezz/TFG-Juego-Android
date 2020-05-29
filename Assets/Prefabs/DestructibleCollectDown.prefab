@@ -157,6 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8240f875e7a9645bca4fdaa5215539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 7626496873461512090, guid: 038fbec5b8ae98b4785c7b1ff5abc9a9,
+    type: 3}
 --- !u!61 &1596214922470335373
 BoxCollider2D:
   m_ObjectHideFlags: 0

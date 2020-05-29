@@ -9,10 +9,14 @@ public class DestructibleCollectUp : MonoBehaviour
     private AudioSource breakSound;
     //private bool triggered;
 
+    private CameraShake cameraShake;
+    
+
     private void Start()
     {
         startPosition = (Vector2) transform.position;
         breakSound = GetComponent<AudioSource>();
+        cameraShake = Camera.main.GetComponent<CameraShake>();
     }
     
     /*
@@ -71,6 +75,7 @@ public class DestructibleCollectUp : MonoBehaviour
                 player.AddComplementaryForceUpLeft();
                 transform.position = startPosition;
                 breakSound.Play();
+                StartCoroutine(cameraShake.Shake(.15f, .1f));
             }
             else
             {
