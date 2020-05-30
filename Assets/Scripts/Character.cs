@@ -46,11 +46,12 @@ public class Character : MonoBehaviour
     //private int remainingJumps;
     private BetterJump betterJumpScript;
     private bool jumpRequest;
+    private bool isJumping;
     
     [Header("Dash Settings")]
     public float dashSpeed;
     public float dragDash;
-    private bool isDashing = false;
+    private bool isDashing;
     public int maxNumDashes;
     [SerializeField]
     private int remainingDashes;
@@ -169,11 +170,13 @@ public class Character : MonoBehaviour
         else if (rb.velocity.y > 0)
         {
             anim.SetBool("isJumping", true);
+            isJumping = true;
             anim.SetBool("isFalling", false);
         }
         else if(rb.velocity.y < 0)
         {
             anim.SetBool("isFalling", true);
+            isJumping = false;
             anim.SetBool("isJumping", false);
         }
 
@@ -380,7 +383,10 @@ public class Character : MonoBehaviour
                         }
                         else
                         {
-                            downDashRequest = true;
+                            if (!onGround)
+                            {
+                                downDashRequest = true;
+                            }
                         }
                     }
                     break;
@@ -399,6 +405,8 @@ public class Character : MonoBehaviour
         get => isDownDashing;
         set => isDownDashing = value;
     }
+
+    public bool IsJumping => isJumping;
 
     public void PlayerDied()
     {
@@ -439,4 +447,6 @@ public class Character : MonoBehaviour
         currentColliderIndex = spriteNum;
         colliders[currentColliderIndex].enabled = true;
     }
+
+    
 }

@@ -83,4 +83,9 @@ public class OptionsMenu : MonoBehaviour
         
     }
 
+    public void RestartTutorial()
+    {
+        PlayerPrefs.SetInt("savedFirstTime", 1);
+    }
+
 }

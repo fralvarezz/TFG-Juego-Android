@@ -39,6 +39,9 @@ public class GameControl : MonoBehaviour
     private int checkedDifficulty;
     private float difficultyJump;
     private int score = 0;
+
+    private int firstTime = 0;
+    private TutorialManager tutorialManager;
     
     //Set up GameControl
     void Awake()
@@ -60,9 +63,24 @@ public class GameControl : MonoBehaviour
     {
         backgroundScrollSpeed = initialBackgroundScrollSpeed;
         nextBackgroundScrollSpeed = backgroundScrollSpeed;
+        
         spawner = gameObject.GetComponent<Spawner>();
         difficultyJump = (maxBackgroundScrollSpeed - initialBackgroundScrollSpeed) / (numDifficultyLevels - 1);
         scoreManager = GetComponent<ScoreManager>();
+        
+        
+        tutorialManager = GetComponent<TutorialManager>();
+        firstTime = PlayerPrefs.GetInt("savedFirstTime", 1);
+        if (firstTime == 1)
+        {
+            tutorialManager.enabled = true;
+            PlayerPrefs.SetInt("savedFirstTime", 0);
+        }
+        else
+        {
+            tutorialManager.enabled = false;
+        }
+        
     }
 
     // Update is called once per frame
@@ -183,5 +201,16 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    public float BackgroundScrollSpeed => backgroundScrollSpeed;
+
+    public float BackgroundScrollSpeed
+    {
+        get => backgroundScrollSpeed;
+        set => backgroundScrollSpeed = value;
+    }
+
+    public float NextBackgroundScrollSpeed
+    {
+        get => nextBackgroundScrollSpeed;
+        set => nextBackgroundScrollSpeed = value;
+    }
 }
