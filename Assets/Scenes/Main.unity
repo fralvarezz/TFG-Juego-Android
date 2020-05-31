@@ -1895,7 +1895,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -471}
-  m_SizeDelta: {x: 462.5, y: 56.4}
+  m_SizeDelta: {x: 1027.6, y: 56.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642641211
 MonoBehaviour:
@@ -1915,7 +1915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DESLIZA PARA DASH
+  m_text: DESLIZA HACIA LA DERECHA PARA GOLPEAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41badc55b21851e429361d5a3bddda84, type: 2}
   m_sharedMaterial: {fileID: 21224890990169028, guid: 41badc55b21851e429361d5a3bddda84,
@@ -1944,8 +1944,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 57.59
-  m_fontSizeBase: 57.59
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1985,10 +1985,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 642641211}
-    characterCount: 17
+    characterCount: 37
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 5
+    wordCount: 6
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -2255,7 +2255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &766358671
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2273,7 +2273,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -471}
-  m_SizeDelta: {x: 596.9, y: 56.4}
+  m_SizeDelta: {x: 1403.4, y: 56.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766358672
 MonoBehaviour:
@@ -2293,7 +2293,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DESLIZA PARA DOWNDASH
+  m_text: EN EL AIRE, DESLIZA HACIA DEBAJO PARA DAR UNA PATADA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41badc55b21851e429361d5a3bddda84, type: 2}
   m_sharedMaterial: {fileID: 21224890990169028, guid: 41badc55b21851e429361d5a3bddda84,
@@ -2322,8 +2322,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 57.59
-  m_fontSizeBase: 57.59
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2363,10 +2363,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 766358672}
-    characterCount: 21
+    characterCount: 52
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 9
+    wordCount: 10
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -4108,14 +4108,14 @@ MonoBehaviour:
   maxCollectSpawnRate: 10
   nextCollectSpawn: 4
   horizontalYpositionMin: -2.67
-  horizontalYpositionMax: 4.11
+  horizontalYpositionMax: 4.01
   tiltedYpositionMin: -1.75
-  tiltedYpositionMax: 3.3969
+  tiltedYpositionMax: 3.2969
   verticalYpositionMin: -1.83
-  verticalYpositionMax: 3.33
+  verticalYpositionMax: 3.13
   destructDownYpositionMin: -1.1
-  destructUpYpositionMax: 2.75
-  destructYPositionMax: 3.7
+  destructUpYpositionMax: 2.65
+  destructYPositionMax: 3.6
   destructYPositionMin: -2.2
 --- !u!114 &1311788097
 MonoBehaviour:
@@ -5432,8 +5432,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 57.59
-  m_fontSizeBase: 57.59
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
