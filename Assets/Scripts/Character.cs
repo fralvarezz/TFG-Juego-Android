@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class Character : MonoBehaviour
 {
@@ -90,7 +92,7 @@ public class Character : MonoBehaviour
     {
         //Check inputs if player isnt dead
         if(!isDead){
-            
+
             CheckInput();
             
             if(jumpRequest)
@@ -103,6 +105,10 @@ public class Character : MonoBehaviour
             {
                 if (remainingDashes > 0)
                 {
+                    if (co != null)
+                    {
+                        StopCoroutine(co);
+                    }
                     Dash();
                     remainingDashes--;
                 }
@@ -113,6 +119,10 @@ public class Character : MonoBehaviour
             {
                 if (remainingDownDashes > 0)
                 {
+                    if (co != null)
+                    {
+                        StopCoroutine(co);
+                    }
                     DownDash();
                     remainingDownDashes--;
                 }
@@ -183,6 +193,7 @@ public class Character : MonoBehaviour
         
     }
 
+    /*
     private void FixedUpdate()
     {
         if (onGround)
@@ -190,7 +201,7 @@ public class Character : MonoBehaviour
             ReloadDashes();
             //ReloadJumps();
         }
-    }
+    }*/
 
     private void Jump()
     {
@@ -201,16 +212,14 @@ public class Character : MonoBehaviour
     
     private void Dash()
     {
-        if (co != null)
-        {
-            StopCoroutine(co);
-        }
+        
         anim.SetTrigger("punch");
 
         rb.velocity = Vector2.zero;
         rb.drag = 10;
         rb.gravityScale = 2f;
         rb.velocity = Vector2.right * dashSpeed;
+        
         dashWait = StartCoroutine(DashWait());
     }
 
@@ -249,19 +258,10 @@ public class Character : MonoBehaviour
         }
         
     }
-
-    /*
-    private void DownDash()
-    {
-        rb.AddForce(Vector2.down * downDashSpeed);
-    }*/
+    
     
     private void DownDash()
     {
-        if (co != null)
-        {
-            StopCoroutine(co);
-        }
         anim.SetTrigger("kickDown");
         //rb.velocity = Vector2.zero;
         rb.drag = 2;
