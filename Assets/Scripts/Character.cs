@@ -92,7 +92,9 @@ public class Character : MonoBehaviour
     {
         //Check inputs if player isnt dead
         if(!isDead){
+            Debug.Log("Velocidad en update: " + rb.velocity.x);
 
+            
             CheckInput();
             
             if(jumpRequest)
@@ -105,10 +107,6 @@ public class Character : MonoBehaviour
             {
                 if (remainingDashes > 0)
                 {
-                    if (co != null)
-                    {
-                        StopCoroutine(co);
-                    }
                     Dash();
                     remainingDashes--;
                 }
@@ -119,10 +117,6 @@ public class Character : MonoBehaviour
             {
                 if (remainingDownDashes > 0)
                 {
-                    if (co != null)
-                    {
-                        StopCoroutine(co);
-                    }
                     DownDash();
                     remainingDownDashes--;
                 }
@@ -143,7 +137,7 @@ public class Character : MonoBehaviour
                 if (transform.position.x < startPosition.x)
                 {
                     transform.position = new Vector2(startPosition.x, transform.position.y);
-                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
                 }
             }
             else
@@ -212,10 +206,14 @@ public class Character : MonoBehaviour
     
     private void Dash()
     {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
         
-        anim.SetTrigger("punch");
-
         rb.velocity = Vector2.zero;
+        rb.drag = 0;
+        anim.SetTrigger("punch");
         rb.drag = 10;
         rb.gravityScale = 2f;
         rb.velocity = Vector2.right * dashSpeed;
@@ -232,7 +230,7 @@ public class Character : MonoBehaviour
         isDashing = true;
         isReturning = false;
         
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.25f);
         
         rb.gravityScale = 2f;
         betterJumpScript.enabled = true;
@@ -258,10 +256,19 @@ public class Character : MonoBehaviour
         }
         
     }
-    
+
+    /*
+    private void DownDash()
+    {
+        rb.AddForce(Vector2.down * downDashSpeed);
+    }*/
     
     private void DownDash()
     {
+        if (co != null)
+        {
+            StopCoroutine(co);
+        }
         anim.SetTrigger("kickDown");
         //rb.velocity = Vector2.zero;
         rb.drag = 2;

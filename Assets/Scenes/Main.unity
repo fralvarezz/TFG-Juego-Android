@@ -1513,7 +1513,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.16470589, g: 0.30980393, b: 0.14901961, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -1529,7 +1529,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.3
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4033,6 +4033,8 @@ MonoBehaviour:
   nextBackgroundScrollSpeed: 0
   numDifficultyLevels: 5
   actualDifficultyLevel: 1
+  pauseMenu: {fileID: 1551014475}
+  optionsMenu: {fileID: 421851853}
 --- !u!4 &1311788094
 Transform:
   m_ObjectHideFlags: 0
@@ -4108,14 +4110,14 @@ MonoBehaviour:
   maxCollectSpawnRate: 10
   nextCollectSpawn: 4
   horizontalYpositionMin: -2.67
-  horizontalYpositionMax: 4.01
+  horizontalYpositionMax: 4.11
   tiltedYpositionMin: -1.75
-  tiltedYpositionMax: 3.2969
+  tiltedYpositionMax: 3.3969
   verticalYpositionMin: -1.83
-  verticalYpositionMax: 3.13
+  verticalYpositionMax: 3.23
   destructDownYpositionMin: -1.1
-  destructUpYpositionMax: 2.65
-  destructYPositionMax: 3.6
+  destructUpYpositionMax: 2.75
+  destructYPositionMax: 3.7
   destructYPositionMin: -2.2
 --- !u!114 &1311788097
 MonoBehaviour:

@@ -75,7 +75,7 @@ public class DestructibleCollectUp : MonoBehaviour
                 player.AddComplementaryForceUpLeft();
                 transform.position = startPosition;
                 breakSound.Play();
-                StartCoroutine(cameraShake.Shake(.15f, .1f));
+                StartCoroutine(cameraShake.Shake(.15f, .08f));
             }
             else
             {

@@ -42,7 +42,10 @@ public class GameControl : MonoBehaviour
 
     private int firstTime = 0;
     private TutorialManager tutorialManager;
-    
+
+    public GameObject pauseMenu;
+
+    public GameObject optionsMenu;
     //Set up GameControl
     void Awake()
     {
@@ -87,7 +90,7 @@ public class GameControl : MonoBehaviour
     void Update()
     {
         
-        if (gameOver && Input.GetMouseButtonUp(0))
+        if (gameOver && Input.GetMouseButtonUp(0) && !AnyMenuActive())
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -212,5 +215,10 @@ public class GameControl : MonoBehaviour
     {
         get => nextBackgroundScrollSpeed;
         set => nextBackgroundScrollSpeed = value;
+    }
+
+    private bool AnyMenuActive()
+    {
+        return pauseMenu.activeSelf || optionsMenu.activeSelf;
     }
 }

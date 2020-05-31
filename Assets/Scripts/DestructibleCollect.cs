@@ -35,7 +35,7 @@ public class DestructibleCollect : MonoBehaviour
                 player.AddComplementaryForceUpLeft();
                 player.ReloadDashes();
                 breakSound.Play();
-                StartCoroutine(cameraShake.Shake(.15f, .1f));
+                StartCoroutine(cameraShake.Shake(.15f, .08f));
             }
             else
             {

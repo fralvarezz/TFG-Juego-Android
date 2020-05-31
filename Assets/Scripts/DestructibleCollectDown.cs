@@ -29,7 +29,7 @@ public class DestructibleCollectDown : MonoBehaviour
             triggered = true;
             player.AddComplementaryForceDownLeft();
             breakSound.Play();
-            StartCoroutine(cameraShake.Shake(.15f, .1f));
+            StartCoroutine(cameraShake.Shake(.15f, .08f));
         }
     }
 
