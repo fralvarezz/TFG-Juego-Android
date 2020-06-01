@@ -433,7 +433,7 @@ public class Character : MonoBehaviour
 
         rb.drag = 0;
         rb.velocity = (Vector2.zero);
-        rb.AddForce(new Vector2(-180,120));
+        rb.AddForce(new Vector2(-1000,200));
     }
     
     public void AddComplementaryForceDownLeft()
