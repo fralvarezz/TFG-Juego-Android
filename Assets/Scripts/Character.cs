@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class Character : MonoBehaviour
 {
@@ -43,7 +42,6 @@ public class Character : MonoBehaviour
     [Header("Jump Settings")]
     [Range(0,10)]
     public float jumpVelocity = 5;
-    public int maxNumJumps;
     [SerializeField]
     //private int remainingJumps;
     private BetterJump betterJumpScript;
@@ -81,7 +79,6 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         polygonCollider2D = GetComponent<PolygonCollider2D>(); 
         startPosition = transform.position;
-        //remainingJumps = maxNumJumps;
         remainingDashes = maxNumDashes;
         remainingDownDashes = maxNumDownDashes;
         betterJumpScript = GetComponent<BetterJump>();
@@ -92,9 +89,7 @@ public class Character : MonoBehaviour
     {
         //Check inputs if player isnt dead
         if(!isDead){
-            Debug.Log("Velocidad en update: " + rb.velocity.x);
 
-            
             CheckInput();
             
             if(jumpRequest)
@@ -137,7 +132,6 @@ public class Character : MonoBehaviour
                 if (transform.position.x < startPosition.x)
                 {
                     transform.position = new Vector2(startPosition.x, transform.position.y);
-                    //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
                 }
             }
             else
@@ -183,20 +177,9 @@ public class Character : MonoBehaviour
             isJumping = false;
             anim.SetBool("isJumping", false);
         }
-
         
     }
-
-    /*
-    private void FixedUpdate()
-    {
-        if (onGround)
-        {
-            ReloadDashes();
-            //ReloadJumps();
-        }
-    }*/
-
+    
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -256,12 +239,7 @@ public class Character : MonoBehaviour
         }
         
     }
-
-    /*
-    private void DownDash()
-    {
-        rb.AddForce(Vector2.down * downDashSpeed);
-    }*/
+    
     
     private void DownDash()
     {
@@ -295,17 +273,6 @@ public class Character : MonoBehaviour
     }
     
 
-    /*
-    private bool IsGrounded()
-    {
-        float heightTest = .00875f;
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(polygonCollider2D.bounds.center, polygonCollider2D.bounds.size,
-            0f, Vector2.down, heightTest, platformLayerMask);
-        return raycastHit2D.collider != null;
-    }*/
-    
-
-    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Platform"))
@@ -346,11 +313,7 @@ public class Character : MonoBehaviour
             ReloadDownDashes();
         }
     }
-
-    /*private void ReloadJumps()
-    {
-        remainingJumps = maxNumJumps;
-    }*/
+    
 
     public void ReloadDashes()
     {

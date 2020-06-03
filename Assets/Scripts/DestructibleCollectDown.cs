@@ -47,38 +47,8 @@ public class DestructibleCollectDown : MonoBehaviour
             else
             {
                 triggered = false;
-                //player.AddComplementaryForceDownLeft();
             }
         }
     }
     
-    /*
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Character player = other.gameObject.GetComponent<Character>();
-
-        if (player != null)
-        {
-            player.PlayerDied();
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        Character player = other.gameObject.GetComponent<Character>();
-
-        if (player != null)
-        {
-            if (player.IsDownDashing)
-            {
-                player.IsDownDashing = false;
-                player.ReloadDownDashes();
-                transform.position = startPosition;
-            }
-            else
-            {
-                player.PlayerDied();
-            }
-        }
-    }*/
 }

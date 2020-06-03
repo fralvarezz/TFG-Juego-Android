@@ -296,18 +296,14 @@ public class Spawner : MonoBehaviour
         if (degrees == 0)
         {
             toret = Random.Range(horizontalYpositionMin, horizontalYpositionMax);
-            //Debug.Log("" + toret + " " + degrees);
         }
         else if (degrees == 45 || degrees == -45)
         {
             toret = Random.Range(tiltedYpositionMin, tiltedYpositionMax);
-            //Debug.Log("" + toret + " " + degrees);
         }
         else
         {
             toret = Random.Range(verticalYpositionMin, verticalYpositionMax);
-            //Debug.Log(verticalYpositionMin + ", " + verticalYpositionMax);
-            //Debug.Log("" + toret + " " + degrees);
         }
 
         return toret;

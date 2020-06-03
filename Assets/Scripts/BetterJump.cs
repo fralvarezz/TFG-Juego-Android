@@ -15,25 +15,11 @@ public class BetterJump : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (Input.GetMouseButton(0))
-        {
-            longJumpRequest = true;
-        }
-        else
-        {
-            longJumpRequest = false;
-        }*/
+
         
         if(rb.velocity.y < 0)
         {
@@ -44,22 +30,6 @@ public class BetterJump : MonoBehaviour
         }
     }
     
-    /*
-    private void FixedUpdate()
-    {
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (rb.velocity.y > 0 && !longJumpRequest)
-        {
-            rb.gravityScale = lowJumpMultiplier;
-        }
-        else
-        {
-            rb.gravityScale = 1;
-        }
-    }*/
 }
 
 

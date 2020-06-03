@@ -12,7 +12,6 @@ public class RepeatingBackgroung : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        //groundCollider = GetComponent<BoxCollider2D>();
         groundHorizontalLength =  spriteRenderer.size.x;
     }
 

@@ -44,7 +44,6 @@ public class TutorialManager : MonoBehaviour
 
             if (instructionIndex == 0)
             {
-                //Debug.Log(character.IsDashing);
                 if (character.IsJumping)
                 {
                     instructionIndex++;

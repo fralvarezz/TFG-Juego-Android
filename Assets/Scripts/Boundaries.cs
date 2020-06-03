@@ -13,14 +13,8 @@ public class Boundaries : MonoBehaviour
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
             Camera.main.transform.position.z));
-        //objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
         objectWidth = GetComponent<PolygonCollider2D>().bounds.extents.x;
-        //objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
         objectHeight = GetComponent<PolygonCollider2D>().bounds.size.y;
-        //Debug.Log(objectHeight);
-        //objectHeight = 1.17f;
-        
-        //StartCoroutine(LateStart());
     }
 
     void LateUpdate()
