@@ -155,4 +155,18 @@ public class ScoreManager : MonoBehaviour
                 });
         }
     }
+
+    public void CalculateLastScore()
+    {
+        if (activeChain)
+        {
+            activeChain = false;
+            score += (scoreDuringChain * FindMultiplier(currentChain));
+            scoreText.text = "SCORE: " + Mathf.RoundToInt(score);
+            currentChain = 0;
+            scoreDuringChain = 0;
+            addedScore.text = "";
+        }
+        
+    }
 }
