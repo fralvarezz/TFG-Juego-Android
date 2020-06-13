@@ -3292,7 +3292,6 @@ MonoBehaviour:
   - {fileID: 1203457593}
   onGround: 0
   jumpVelocity: 8.25
-  maxNumJumps: 10
   betterJumpScript: {fileID: 0}
   dashSpeed: 20
   dragDash: 14
